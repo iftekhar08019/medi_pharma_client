@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "category_name": "Pain Relief",
+    "image_url": "https://www.downtownpainphysicians.com/wp-content/uploads/2020/02/Best-Prolotherapy-NYC.jpg",
+    "medicine_count": 120,
+    "category_link": "/category/pain-relief"
+  },
+  {
+    "id": 2,
+    "category_name": "Cold & Flu",
+    "image_url": "https://images.ctfassets.net/lvahr7yfxlsw/2wS7QZC82akOg5mAJA7spp/591f128cbf14b60aade39e55c38279d8/cold-symptoms.jpg",
+    "medicine_count": 85,
+    "category_link": "/category/cold-flu"
+  },
+  {
+    "id": 3,
+    "category_name": "Skin Care",
+    "image_url": "https://lana.ph/cdn/shop/products/Untitleddesign_8.png?v=1704687729",
+    "medicine_count": 45,
+    "category_link": "/category/skin-care"
+  },
+  {
+    "id": 4,
+    "category_name": "Digestive Health",
+    "image_url": "https://www.journee-mondiale.com/en/wp-content/uploads/2024/11/msg_01Gt8ysabpKbwmXTKFnsQDqE.webp",
+    "medicine_count": 78,
+    "category_link": "/category/digestive-health"
+  },
+  {
+    "id": 5,
+    "category_name": "Vitamins & Supplements",
+    "image_url": "https://img.freepik.com/free-photo/closeup-shot-fresh-fruits-with-different-medicine-wooden-spoon_181624-47231.jpg?semt=ais_hybrid&w=740",
+    "medicine_count": 150,
+    "category_link": "/category/vitamins-supplements"
+  },
+  {
+    "id": 6,
+    "category_name": "Allergy Relief",
+    "image_url": "https://s2.ppllstatics.com/surinenglish/www/multimedia/2024/06/19/gripe-covid-resfriado-RM0evlXyy2-kzeF--1200x840@Diario%20Sur.jpg",
+    "medicine_count": 60,
+    "category_link": "/category/allergy-relief"
+  }
+]

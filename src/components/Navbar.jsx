@@ -17,12 +17,7 @@ const Navbar = () => {
               <NavLink to="/shop">Shop</NavLink>
             </li>
             {/* Cart icon + text */}
-            <li>
-              <NavLink to="/cart" className="flex items-center gap-2">
-                <FaShoppingCart size={22} />
-                <span>Cart</span>
-              </NavLink>
-            </li>
+
             {/* Language dropdown */}
             <li tabIndex={0}>
               <details>
@@ -123,14 +118,17 @@ const Navbar = () => {
           </div>
           <Logo />
         </div>
-        <div className="navbar-end flex items-center gap-4">
+        <div className="navbar-end flex items-center gap-4 text-xl text-white">
           {/* Log in Button */}
           <button className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-full bg-transparent hover:bg-white hover:text-[#386960] transition">
             <FaRegUser size={22} />
             <span>Log in</span>
           </button>
 
-
+          <NavLink to="/cart" className="lg:flex hidden items-center gap-2 bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition">
+            <FaShoppingCart size={22} />
+            <span>Cart</span>
+          </NavLink>
         </div>
       </div>
     </div>

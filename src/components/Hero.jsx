@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css';
+import "swiper/css";
 import useAxios from "../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 const Hero = () => {
-  const [ads, setAds] = useState([]);
   const axios = useAxios();
 
-  useEffect(() => {
-    // Fetch ads from your API
-    axios.get("/advertisements")
-      .then((response) => {
-        setAds(response.data);  // Assuming the response has data in the format you provided
-      })
-      .catch((error) => {
-        console.error("Error fetching ads:", error);
-      });
-  }, [axios]);
+  const {
+    data: adsData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["ads"],
+    queryFn: async () => {
+      const response = await axios.get("/advertisements");
+      return response.data;
+    },
+  });
 
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching ads</div>;
   return (
-    <div className="relative rounded-xl overflow-hidden shadow-xl">
+    <div className="relative rounded-xl overflow-hidden">
       <Swiper
         spaceBetween={50}
         fadeEffect={{ crossFade: true }}
@@ -29,10 +31,10 @@ const Hero = () => {
         }}
         className="swiper-container rounded-xl"
       >
-        {ads.map((ad, index) => (
+        {adsData.map((ad, index) => (
           <SwiperSlide key={index}>
             <div
-              className="relative w-[96%] min-h-[70vh] bg-cover bg-center mx-auto rounded-xl"
+              className="relative min-h-[70vh] bg-cover bg-center rounded-xl"
               style={{
                 backgroundImage: `url(${ad.img})`,
               }}
