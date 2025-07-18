@@ -3,6 +3,8 @@ import Hero from '../components/Hero';
 import CategorySection from '../components/CatagorySection';
 import DiscountProductsSlider from '../components/DiscountedProductSlider';
 import MarqueeSection from '../components/MarqueeSection';
+import BenefitsSection from '../components/BenefitsSection';
+import Footer from '../components/Footer';
 
 const Home = () => {
     return (
@@ -11,6 +13,8 @@ const Home = () => {
             <CategorySection />
             <DiscountProductsSlider />
             <MarqueeSection />
+            <BenefitsSection />
+            <Footer />
         </div>
     );
 };

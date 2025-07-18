@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Joe",
+    "role": "Teacher",
+    "avatar": "https://media.istockphoto.com/id/1503232125/photo/happy-smile-and-portrait-of-business-man-in-city-for-professional-corporate-and-pride.jpg?s=612x612&w=0&k=20&c=uPu3GKHW507ruenLY8xwsB3OgOSwLSWjE3fBpy20Hac=",
+    "review": "Amazing service and a wonderful experience! The customer support was very helpful and delivery was fast. Highly recommended."
+  },
+  {
+    "id": 2,
+    "name": "Anna",
+    "role": "Nurse",
+    "avatar": "https://media.istockphoto.com/id/1503232125/photo/happy-smile-and-portrait-of-business-man-in-city-for-professional-corporate-and-pride.jpg?s=612x612&w=0&k=20&c=uPu3GKHW507ruenLY8xwsB3OgOSwLSWjE3fBpy20Hac=",
+    "review": "Great quality products! I was very happy with my purchase and will definitely come back for more."
+  },
+  {
+    "id": 3,
+    "name": "Sam",
+    "role": "Entrepreneur",
+    "avatar": "https://media.istockphoto.com/id/1503232125/photo/happy-smile-and-portrait-of-business-man-in-city-for-professional-corporate-and-pride.jpg?s=612x612&w=0&k=20&c=uPu3GKHW507ruenLY8xwsB3OgOSwLSWjE3fBpy20Hac=",
+    "review": "I love how user-friendly the website is. Ordering was smooth and hassle-free. Would recommend to anyone!"
+  },
+  {
+    "id": 4,
+    "name": "Lisa",
+    "role": "Student",
+    "avatar": "https://media.istockphoto.com/id/1503232125/photo/happy-smile-and-portrait-of-business-man-in-city-for-professional-corporate-and-pride.jpg?s=612x612&w=0&k=20&c=uPu3GKHW507ruenLY8xwsB3OgOSwLSWjE3fBpy20Hac=",
+    "review": "Affordable prices and excellent customer support. I had a question and got an answer quickly. Very happy!"
+  }
+]

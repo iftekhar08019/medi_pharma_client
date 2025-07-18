@@ -3,7 +3,7 @@ import { Link } from "react-router"; // for navigation (updated to use react-rou
 
 const CategoryCard = ({ category }) => {
   return (
-    <div className="card w-[90%] bg-[#CEDDD1] shadow-xl transition-transform duration-300 hover:scale-105 group">
+    <div className="card w-[90%] sm:w-[95%] md:w-full bg-[#CEDDD1] shadow-xl transition-transform duration-300 hover:scale-105 group mx-auto">
         
   
         <figure className="h-48 flex items-center justify-center overflow-hidden rounded-t-lg">
