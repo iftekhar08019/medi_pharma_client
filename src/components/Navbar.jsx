@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { FaRegUser, FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router";
 import { NavLink } from "react-router";
 import Logo from "../utility/Logo";
-import SignInModal from "../utility/SignInModal";
+import AuthModal from "../utility/AuthModal";
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -146,7 +145,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <SignInModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      <AuthModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </>
   );
 };

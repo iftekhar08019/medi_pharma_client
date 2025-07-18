@@ -8,3 +8,6 @@
 .font-outfit {
     font-family: 'Outfit', sans-serif;
 }
+
+.perspective { perspective: 1200px; }
+.rotate-y-180 { transform: rotateY(180deg); }
