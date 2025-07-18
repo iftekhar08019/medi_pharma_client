@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CategoryCard from '../utility/CatagoryCard';
+import { Link } from 'react-router';
 
 const CategorySection = () => {
     const [categories, setCategories] = useState([]);
@@ -15,13 +16,13 @@ const CategorySection = () => {
     }, []);
 
     return (
-       <div className="w-full mx-auto my-10">
+       <div className="w-full mx-auto my-10 " data-aos="fade-up" >
         <h1 className="text-4xl font-bold text-center my-10">Browse Categories</h1>
-         <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+         <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 " data-aos="fade-up">
             {categories.map((category) => (
-                <a href={category.category_link} key={category.id}>
+                <Link to={"/"} href={category.category_link} key={category.id}>
                     <CategoryCard category={category} />
-                </a>
+                </Link>
             ))}
         </div>
        </div>

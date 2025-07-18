@@ -1,26 +1,19 @@
 import React from "react";
 import { Link } from "react-router"; // for navigation (updated to use react-router-dom)
-import { FaArrowRight } from "react-icons/fa"; // for the "Arrow Right" icon
 
 const CategoryCard = ({ category }) => {
   return (
-    <div className="card w-80 bg-[#CEDDD1] shadow-xl transition-transform duration-300 hover:scale-105 group">
+    <div className="card w-[90%] bg-[#CEDDD1] shadow-xl transition-transform duration-300 hover:scale-105 group">
         
-      <figure
-        className="flex bg-[#CEDDD1] hover:opacity-100 justify-center transition-all duration-500 group-hover:bg-cover hover:bg-center hover:bg-no-repeat hover:rounded-t-lg"
-        style={{
-          backgroundImage: `url(${category.image_url})`,
-          height: "200px",
-        }}
-      >
-        {" "}
+  
+        <figure className="h-48 flex items-center justify-center overflow-hidden rounded-t-lg">
           <img
-          src={category.image_url}
-          alt={category.category_name}
-          className="w-32 h-32 object-cover rounded-full opacity-100 hover:opacity-0 transition-opacity duration-500"
-        />
-      </figure>
-    
+            src={category.image_url}
+            alt={category.category_name}
+            className="w-32 h-32 rounded-full object-cover"
+          />
+        </figure>
+
       <div className="card-body text-center">
         <h3 className="text-xl font-bold">
           {category.category_name.toUpperCase()}

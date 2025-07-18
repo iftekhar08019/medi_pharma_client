@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "image": "https://static.vecteezy.com/system/resources/previews/000/300/621/non_2x/vector-a-set-of-medicine-and-prescription.jpg",
+    "name": "Prescription Set",
+    "oldPrice": "13.90",
+    "price": "12.50",
+    "discount": "10% OFF"
+  },
+  {
+    "id": 2,
+    "image": "https://static.vecteezy.com/system/resources/previews/000/300/621/non_2x/vector-a-set-of-medicine-and-prescription.jpg",
+    "name": "Complete Health Kit",
+    "oldPrice": "22.50",
+    "price": "18.00",
+    "discount": "20% OFF"
+  },
+  {
+    "id": 3,
+    "image": "https://img.freepik.com/free-vector/healthcare-medications-composition-with-images-pills-blisters-capsules-jars-drops-syrups-vector-illustration_1284-71689.jpg?semt=ais_hybrid&w=740",
+    "name": "Medication Combo",
+    "oldPrice": "11.75",
+    "price": "9.99",
+    "discount": "15% OFF"
+  },
+  {
+    "id": 4,
+    "image": "https://img.freepik.com/free-vector/healthcare-medications-composition-with-images-pills-blisters-capsules-jars-drops-syrups-vector-illustration_1284-71689.jpg?semt=ais_hybrid&w=740",
+    "name": "Daily Pill Pack",
+    "oldPrice": "7.89",
+    "price": "7.49",
+    "discount": "5% OFF"
+  },
+  {
+    "id": 5,
+    "image": "https://img.freepik.com/premium-photo/pills-from-bottle-isolated-white_55883-5783.jpg",
+    "name": "Pills Bottle",
+    "oldPrice": "5.68",
+    "price": "5.00",
+    "discount": "12% OFF"
+  },
+  {
+    "id": 6,
+    "image": "https://img.freepik.com/premium-photo/pills-from-bottle-isolated-white_55883-5783.jpg",
+    "name": "Capsule Essentials",
+    "oldPrice": "10.96",
+    "price": "8.99",
+    "discount": "18% OFF"
+  }
+]

@@ -120,7 +120,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end flex items-center gap-4 text-xl text-white">
           {/* Log in Button */}
-          <button className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-full bg-transparent hover:bg-white hover:text-[#386960] transition">
+          <button className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition">
             <FaRegUser size={22} />
             <span>Log in</span>
           </button>
