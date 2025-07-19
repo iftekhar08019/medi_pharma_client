@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CategoryCard from '../utility/CatagoryCard';
+import CategoryCard from './CatagoryCard';
 import { Link } from 'react-router';
 
 const CategorySection = () => {

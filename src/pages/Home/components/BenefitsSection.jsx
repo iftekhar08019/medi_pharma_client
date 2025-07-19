@@ -22,13 +22,12 @@ const BenefitsSection = () => (
           {/* Info & Signature */}
           <div className="flex flex-col flex-1 justify-between">
             <h2 className="text-3xl font-extrabold text-black mb-6">
-              Medicine Marketplace
+              Trusted Healthcare Platform
             </h2>
             <p className="text-xl text-black mb-8 leading-relaxed">
-              Build your skills as a Junior MERN Stack Developer! Collaborate
-              with our experienced team and gain hands-on experience in building
-              a robust multi-vendor e-commerce platform for medicines and
-              healthcare products.
+              Your trusted online pharmacy connecting you with verified healthcare vendors. 
+              Quality medicines, expert advice, and secure delivery to your doorstep. 
+              Join thousands of satisfied customers who trust us for their healthcare needs.
             </p>
             <div className="flex flex-col gap-2 mt-2">
               <img
@@ -37,7 +36,7 @@ const BenefitsSection = () => (
                 className="w-40 object-contain mb-2"
               />
               <span className="text-[#399961] text-lg">
-                – Assured by CTO of MediPharma
+                – Assured by CEO of MediPharma
               </span>
             </div>
           </div>
@@ -78,17 +77,17 @@ const BenefitsSection = () => (
         }}
       >
         <h3 className="text-4xl md:text-5xl font-extrabold mb-5 text-black leading-tight text-left">
-          Why Join Our
+          Why Choose
           <br />
-          MERN Stack Team?
+          MediPharma?
         </h3>
         <p className="text-xl text-black mb-7 text-left">
-          Be part of a team that’s shaping the future of digital healthcare.
-          Learn real-world skills, solve challenging problems, and help build an
-          app that connects vendors, experts, and customers safely and easily.
+          Experience the future of healthcare shopping. Connect with verified vendors, 
+          get expert medical advice, and enjoy secure, fast delivery of quality medicines 
+          right to your doorstep.
         </p>
         <button className="bg-[#396961] text-white text-xl font-bold py-3 px-10 rounded-full hover:bg-[#28524c] transition mt-10">
-          Join Now
+          Shop Now
         </button>
       </div>
     </div>

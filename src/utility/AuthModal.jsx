@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
+import SignInForm from "../pages/SignInUp/SignInForm";
+import SignUpForm from "../pages/SignInUp/SignUpForm";
 
 
 const AuthModal = ({ isOpen, onClose }) => {

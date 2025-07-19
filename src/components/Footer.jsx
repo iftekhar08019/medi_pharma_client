@@ -5,7 +5,7 @@ import Logo from "../utility/Logo";
 
 
 const Footer = () => (
-  <footer className="bg-[#191A1A] rounded-3xl  mt-8 mb-4 pb-0 pt-6 px-4 md:px-10">
+  <footer className="bg-[#191A1A] rounded-3xl  mt-8 mb-4 pb-0 pt-6 px-4 md:px-10 w-[96%] mx-auto">
     <div className="mx-auto flex flex-col gap-10 pb-6">
       {/* Top Area: 3 columns on md+ */}
       <div className="flex flex-col md:flex-row gap-8 justify-between">
@@ -16,22 +16,23 @@ const Footer = () => (
             
           </div>
           <p className="text-gray-300 mb-6 max-w-xs">
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque.
+            Your trusted online pharmacy platform connecting you with verified healthcare vendors. Quality medicines, expert advice, and secure delivery to your doorstep.
           </p>
           <div className="flex items-start gap-2 text-gray-300 mb-2">
             <FaMapMarkerAlt className="text-xl mt-1" />
             <span>
-              No: 58 A, East Madison Street,<br />
-              Baltimore, MD, USA 4508
+              MediPharma Headquarters<br />
+              Healthcare District, Medical Center<br />
+              Baltimore, MD, USA 21201
             </span>
           </div>
           <div className="flex items-center gap-2 text-gray-300 mb-2">
             <FaPhoneAlt className="text-lg" />
-            <span>000 - 123 - 456789</span>
+            <span>1-800-MEDICINE (1-800-633-4246)</span>
           </div>
           <div className="flex items-center gap-2 text-gray-300 mb-2">
             <FaEnvelope className="text-lg" />
-            <span>support@example.com</span>
+            <span>support@medipharma.com</span>
           </div>
           <div className="mt-7">
             <h3 className="font-bold text-white mb-3 text-lg">Stay Connected With Us</h3>
@@ -43,17 +44,17 @@ const Footer = () => (
             </div>
           </div>
         </div>
-        {/* Center - Interested in Joining */}
+        {/* Center - Become a Vendor */}
         <div className="flex-1 min-w-[300px] flex justify-center items-center">
           <div className="bg-[#232324] rounded-2xl p-7 w-full max-w-md flex flex-col justify-center items-start">
-            <h3 className="text-xl font-bold text-white mb-2">Interested In Joining?</h3>
-            <p className="text-gray-300 mb-4">Dignissim cras tincidunt lobortis feugiat vivamus</p>
-            <button className="bg-[#F5D377] text-[#191A1A] font-bold text-lg py-2 px-8 rounded-full hover:bg-amber-300 transition">Shop Now</button>
+            <h3 className="text-xl font-bold text-white mb-2">Become a Vendor?</h3>
+            <p className="text-gray-300 mb-4">Join our network of trusted healthcare vendors and reach millions of customers nationwide</p>
+            <button className="bg-[#F5D377] text-[#191A1A] font-bold text-lg py-2 px-8 rounded-full hover:bg-amber-300 transition">Apply Now</button>
           </div>
         </div>
         {/* Right - Newsletter */}
         <div className="flex-1 min-w-[300px]">
-          <h3 className="text-xl font-bold text-white mb-4">Subscribe Our News Letter</h3>
+          <h3 className="text-xl font-bold text-white mb-4">Health Updates Newsletter</h3>
           <form className="flex w-full mb-4">
             <input
               type="email"
@@ -64,13 +65,13 @@ const Footer = () => (
               type="submit"
               className="bg-[#B89D56] text-[#191A1A] font-bold px-8 py-3 rounded-r-full hover:bg-[#FFD377] transition"
             >
-              Send
+              Subscribe
             </button>
           </form>
           <div className="flex items-center gap-2">
             <input type="checkbox" id="agree" className="accent-[#396961] w-5 h-5" />
             <label htmlFor="agree" className="text-gray-300 text-sm">
-              I agree with the terms & conditions
+              I agree to receive health updates and promotional offers
             </label>
           </div>
         </div>
@@ -88,7 +89,7 @@ const Footer = () => (
           </button>
         </div>
         <div className="text-gray-300 text-center py-2 text-sm">
-          All Right Reserved © 2023 Wedesigntech
+          All Rights Reserved © 2024 MediPharma - Multi-Vendor Medicine Platform
         </div>
         <div className="flex gap-3">
           <FaCcVisa className="text-3xl text-gray-100" />

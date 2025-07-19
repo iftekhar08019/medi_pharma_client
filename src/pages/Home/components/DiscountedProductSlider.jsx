@@ -4,7 +4,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import DiscountedProductCard from "../utility/DiscountedProductCard";
+import DiscountedProductCard from "./DiscountedProductCard";
 
 const DiscountProductsSlider = () => {
   const [products, setProducts] = useState([]);

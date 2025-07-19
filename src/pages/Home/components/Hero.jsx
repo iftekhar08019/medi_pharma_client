@@ -1,7 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import useAxios from "../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 const Hero = () => {
   const axios = useAxios();
@@ -43,12 +44,12 @@ const Hero = () => {
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
                 <h2 className="text-3xl font-semibold">{ad.title}</h2>
                 <p className="mt-4 text-lg">{ad.description}</p>
-                <a
-                  href="#"
+                <Link
+                  to="/shops"
                   className="mt-6 bg-[#396961] hover:bg-amber-400 hover:text-black text-white px-8 py-3 rounded-full text-xl"
                 >
                   Shop Now
-                </a>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
