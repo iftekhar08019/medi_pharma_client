@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useCart } from "../../../context/CartContext";
+import toast from "react-hot-toast";
 
 const ProductDetailsModal = ({ product, isOpen, onClose, onAddToCart, onBuyNow }) => {
   const [quantity, setQuantity] = useState(1);
   const [weight, setWeight] = useState("");
   const [benefit, setBenefit] = useState("");
+  const { dispatch } = useCart();
 
   useEffect(() => {
     if (product) {
@@ -34,6 +37,8 @@ const ProductDetailsModal = ({ product, isOpen, onClose, onAddToCart, onBuyNow }
   } = product;
 
   const handleAddToCart = () => {
+    dispatch({ type: "ADD", product: { ...product, selectedWeight: weight, selectedBenefit: benefit }, quantity });
+    toast.success("Product added to cart!");
     onAddToCart && onAddToCart({ ...product, quantity, selectedWeight: weight, selectedBenefit: benefit });
   };
   const handleBuyNow = () => {
@@ -42,7 +47,7 @@ const ProductDetailsModal = ({ product, isOpen, onClose, onAddToCart, onBuyNow }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 overflow-y-auto">
-      <div className="relative bg-[#eaf3ec] rounded-3xl w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-2 flex flex-col md:flex-row p-8 sm:p-4 md:p-8 shadow-2xl">
+      <div className="relative bg-[#eaf3ec] rounded-3xl w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-2 flex flex-col md:flex-row p-2 sm:p-4 md:p-8 shadow-2xl">
         {/* Close Button */}
         <button
           className="absolute top-2 right-2 sm:top-4 sm:right-4 text-xl sm:text-2xl text-gray-700 hover:text-black"

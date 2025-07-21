@@ -1,5 +1,7 @@
 import React from "react";
 import { FaStar, FaRegStar, FaShoppingCart, FaEye } from "react-icons/fa";
+import { useCart } from "../../../context/CartContext";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ product, view, onViewDetails }) => {
   const {
@@ -19,6 +21,8 @@ const ProductCard = ({ product, view, onViewDetails }) => {
     selectedBenefit,
   } = product;
 
+  const { dispatch } = useCart();
+
   // Render stars for rating
   const renderStars = () => {
     const stars = [];
@@ -32,6 +36,11 @@ const ProductCard = ({ product, view, onViewDetails }) => {
       );
     }
     return stars;
+  };
+
+  const handleAddToCart = () => {
+    dispatch({ type: "ADD", product });
+    toast.success("Product added to cart!");
   };
 
   return (
@@ -49,7 +58,9 @@ const ProductCard = ({ product, view, onViewDetails }) => {
         <img
           src={imageUrl}
           alt={name}
-          className={"w-full h-full object-cover"}
+          className={`w-full h-full ${
+            view === "list" ? "object-cover" : "object-contain"
+          }`}
         />
       </div>
 
@@ -104,6 +115,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
               className="bg-[#2e7153] text-white p-2 rounded-lg hover:bg-[#235b40] transition"
               title="Add to Cart"
               disabled={!inStock}
+              onClick={handleAddToCart}
             >
               <FaShoppingCart />
             </button>
@@ -125,6 +137,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
             className="bg-[#2e7153] text-white p-2 rounded-lg hover:bg-[#235b40] transition"
             title="Add to Cart"
             disabled={!inStock}
+            onClick={handleAddToCart}
           >
             <FaShoppingCart />
           </button>

@@ -3,6 +3,7 @@ import MainLayouts from "../layouts/MainLayouts";
 import Home from "../pages/Home/Home";
 import ShopPage from "../pages/Shop/ShopPage";
 import CategoryDetails from "../pages/Category/CategoryDetails";
+import CartPage from "../pages/CartPage";
 
 
 export const route = createBrowserRouter([
@@ -13,6 +14,10 @@ export const route = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
       {
         path: "/shops",

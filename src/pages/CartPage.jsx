@@ -1,0 +1,123 @@
+import React from "react";
+import { useCart } from "../context/CartContext";
+import { Link, useNavigate } from "react-router";
+
+const CartPage = () => {
+  const { cart, dispatch } = useCart();
+  const navigate = useNavigate();
+
+  const handleRemove = (_id) => dispatch({ type: "REMOVE", _id });
+  const handleClear = () => dispatch({ type: "CLEAR" });
+  const handleUpdate = (_id, quantity) => dispatch({ type: "UPDATE", _id, quantity });
+
+  const subtotal = cart.reduce(
+    (sum, item) => sum + (item.discountPrice || item.price) * item.quantity,
+    0
+  );
+
+  return (
+    <div className="w-[96%] mx-auto p-4 sm:p-8">
+      <div className="bg-[#396961] rounded-3xl w-full flex flex-col items-center justify-center py-10 sm:py-12 mb-8">
+        <h1 className="text-5xl font-bold text-white mb-2 text-center">Your Shopping Cart</h1>
+        <nav className="flex items-center gap-2 text-white text-lg font-medium">
+          <Link to="/" className="hover:underline">Home</Link>
+          <span className="mx-1">{">"}</span>
+          <span>Your Shopping Cart</span>
+        </nav>
+      </div>
+      <div className="bg-[#eaf3ec] rounded-2xl p-6 shadow mb-8">
+        <div className="flex justify-between font-bold text-lg mb-4">
+          <span>PRODUCT</span>
+          <span>QUANTITY</span>
+          <span>TOTAL</span>
+        </div>
+        {cart.length === 0 ? (
+          <div className="text-center text-gray-500 py-10">Your cart is empty.</div>
+        ) : (
+          cart.map(item => (
+            <div key={item._id} className="flex items-center justify-between border-b border-[#396961] py-4">
+              <div className="flex items-center gap-4">
+                <img src={item.imageUrl} alt={item.name} className="w-20 h-20 rounded-xl bg-white object-contain" />
+                <div>
+                  <div className="font-bold">{item.name}</div>
+                  <div className="text-sm text-gray-700">
+                    {item.currency}{item.discountPrice || item.price} <span className="text-xs text-gray-400">{item.discounted && item.discountPrice ? <span className="line-through">{item.currency}{item.price}</span> : null}</span>
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {item.weightOptions ? `Weight: ${item.selectedWeight || item.weightOptions[0]} | ` : ""}
+                    {item.itemForm ? `Item Form: ${item.itemForm} | ` : ""}
+                    {item.productBenefits ? `Product Benefits: ${item.selectedBenefit || item.productBenefits[0]}` : ""}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  className="border rounded-full px-2 py-1"
+                  onClick={() => handleUpdate(item._id, Math.max(1, item.quantity - 1))}
+                  disabled={item.quantity <= 1}
+                >-</button>
+                <span className="px-2">{item.quantity}</span>
+                <button
+                  className="border rounded-full px-2 py-1"
+                  onClick={() => handleUpdate(item._id, item.quantity + 1)}
+                >+</button>
+                <button
+                  className="ml-2 text-red-500 hover:text-red-700"
+                  onClick={() => handleRemove(item._id)}
+                  title="Remove"
+                >🗑️</button>
+              </div>
+              <div className="font-bold">{item.currency}{((item.discountPrice || item.price) * item.quantity).toFixed(2)}</div>
+            </div>
+          ))
+        )}
+        {cart.length > 0 && (
+          <div className="flex justify-between mt-6">
+            <button
+              className="bg-[#396961] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#28524c] transition"
+              onClick={() => navigate('/')}
+            >
+              Continue Shopping
+            </button>
+            <button
+              className="bg-red-100 text-red-700 px-6 py-2 rounded-full font-semibold hover:bg-red-200 transition"
+              onClick={handleClear}
+            >
+              Clear Cart
+            </button>
+          </div>
+        )}
+      </div>
+      {cart.length > 0 && (
+        <div className="flex flex-col md:flex-row gap-6 justify-between items-start bg-[#f5f5f5] rounded-2xl p-6 shadow">
+          <div className="flex-1 mb-4 md:mb-0">
+            <label className="block font-semibold mb-2">Add note</label>
+            <textarea className="w-full rounded-lg p-3 border border-gray-300 min-h-[80px]" placeholder="Enter the text here..." />
+          </div>
+          <div className="w-full md:w-80 flex flex-col gap-3">
+            <div className="flex justify-between font-bold text-lg mb-2">
+              <span>Subtotal</span>
+              <span>{cart[0].currency}{subtotal.toFixed(2)}</span>
+            </div>
+            <div className="text-xs text-gray-500 mb-2">Taxes and shipping calculated at checkout</div>
+            <button
+              className="bg-[#396961] text-white py-3 rounded-full font-semibold hover:bg-[#28524c] transition mb-2"
+              onClick={() => navigate('/checkout')}
+            >
+              Check Out
+            </button>
+            <input
+              className="w-full rounded-full px-4 py-2 border border-gray-300"
+              placeholder="Add discount code"
+            />
+            <button className="bg-[#396961] text-white py-2 rounded-full font-semibold hover:bg-[#28524c] transition">
+              Apply
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CartPage; 
