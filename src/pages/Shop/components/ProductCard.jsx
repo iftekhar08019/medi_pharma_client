@@ -58,9 +58,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
         <img
           src={imageUrl}
           alt={name}
-          className={`w-full h-full ${
-            view === "list" ? "object-cover" : "object-contain"
-          }`}
+          className={`w-full h-full object-cover`}
         />
       </div>
 

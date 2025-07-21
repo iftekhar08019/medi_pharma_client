@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -7,9 +7,15 @@ import "swiper/css/pagination";
 import DiscountedProductCard from "./DiscountedProductCard";
 import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import { useCart } from "../../../context/CartContext";
+import toast from "react-hot-toast";
+import ProductDetailsModal from "../../Shop/components/ProductDetailsModal";
 
 const DiscountProductsSlider = () => {
   const axios = useAxios();
+  const { dispatch } = useCart();
+  const [modalProduct, setModalProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     data: allProducts,
@@ -49,43 +55,65 @@ const DiscountProductsSlider = () => {
     </section>
   );
 
+  const handleAddToCart = (product) => {
+    dispatch({ type: "ADD", product, quantity: 1 });
+    toast.success("Product added to cart!");
+  };
+
+  const handleViewDetails = (product) => {
+    setModalProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setModalProduct(null);
+  };
+
   return (
-    <section className="w-full mx-auto my-10" data-aos="fade-up">
-      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
-      <div className="mx-auto">
-        <Swiper
-          modules={[Navigation, Pagination]}
-          spaceBetween={32} // More space between cards
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          grabCursor={true}
-          loop={true}
-          breakpoints={{
-            480: { slidesPerView: 1 },
-            640: { slidesPerView: 1.2 },   // partial view on small
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-            1280: { slidesPerView: 4 }
-          }}
-          className="!px-2"
-        >
-          {discountedProducts.map((product) => (
-            <SwiperSlide key={product._id || product.id} className="flex justify-between items-center">
-              <DiscountedProductCard
-                image={product.imageUrl}
-                name={product.name}
-                price={product.discountPrice || product.price}
-                oldPrice={product.discounted ? product.price : null}
-                discount={product.discountPercent ? `${product.discountPercent}% OFF` : "SALE"}
-                onView={() => alert(`View: ${product.name}`)}
-                onAddToCart={() => alert(`Added to cart: ${product.name}`)}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </section>
+    <>
+      <ProductDetailsModal
+        product={modalProduct}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
+      <section className="w-full mx-auto my-10" data-aos="fade-up">
+        <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
+        <div className="mx-auto">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            spaceBetween={32} // More space between cards
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            grabCursor={true}
+            loop={true}
+            breakpoints={{
+              480: { slidesPerView: 1 },
+              640: { slidesPerView: 1.2 },   // partial view on small
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 }
+            }}
+            className="!px-2"
+          >
+            {discountedProducts.map((product) => (
+              <SwiperSlide key={product._id || product.id} className="flex justify-between items-center">
+                <DiscountedProductCard
+                  image={product.imageUrl}
+                  name={product.name}
+                  price={product.discountPrice || product.price}
+                  oldPrice={product.discounted ? product.price : null}
+                  discount={product.discountPercent ? `${product.discountPercent}% OFF` : "SALE"}
+                  onView={() => handleViewDetails(product)}
+                  onAddToCart={() => handleAddToCart(product)}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
+    </>
   );
 };
 

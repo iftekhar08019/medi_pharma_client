@@ -75,7 +75,7 @@ const CartPage = () => {
           <div className="flex justify-between mt-6">
             <button
               className="bg-[#396961] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#28524c] transition"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/shops')}
             >
               Continue Shopping
             </button>

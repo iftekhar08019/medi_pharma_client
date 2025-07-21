@@ -3,10 +3,13 @@ import { FaRegUser, FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router";
 import Logo from "../utility/Logo";
 import AuthModal from "../utility/AuthModal";
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cart } = useCart();
+  const cartCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -99,9 +102,16 @@ const Navbar = () => {
 
             <NavLink
               to="/cart"
-              className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition-colors"
+              className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition-colors relative"
             >
-              <FaShoppingCart size={22} />
+              <span className="relative">
+                <FaShoppingCart size={22} />
+                {cartCount > 0 && (
+                  <span className="absolute bottom-4 -right-18 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5 min-w-[20px] text-center border-2 border-white">
+                    {cartCount}
+                  </span>
+                )}
+              </span>
               <span>Cart</span>
             </NavLink>
           </div>
@@ -143,10 +153,17 @@ const Navbar = () => {
               <li>
                 <NavLink 
                   to="/cart" 
-                  className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium"
+                  className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium relative"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <FaShoppingCart size={16} />
+                  <span className="relative">
+                    <FaShoppingCart size={16} />
+                    {cartCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5 min-w-[18px] text-center border-2 border-white">
+                        {cartCount}
+                      </span>
+                    )}
+                  </span>
                   <span>Cart</span>
                 </NavLink>
               </li>
