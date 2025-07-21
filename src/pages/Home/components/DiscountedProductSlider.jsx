@@ -1,20 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import DiscountedProductCard from "./DiscountedProductCard";
+import useAxios from "../../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 const DiscountProductsSlider = () => {
-  const [products, setProducts] = useState([]);
+  const axios = useAxios();
 
-  // Fetch JSON data from public folder
-  useEffect(() => {
-    fetch("/discounted.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+  const {
+    data: allProducts,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await axios.get("/products");
+      return response.data;
+    },
+  });
+
+  // Filter only discounted products
+  const discountedProducts = allProducts?.filter(product => 
+    product.discounted === true || product.discountPrice || product.discountPercent
+  ) || [];
+
+  if (isLoading) return (
+    <section className="w-full mx-auto my-10" data-aos="fade-up">
+      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
+      <div className="text-center text-gray-600">Loading discounted products...</div>
+    </section>
+  );
+
+  if (isError) return (
+    <section className="w-full mx-auto my-10" data-aos="fade-up">
+      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
+      <div className="text-center text-red-600">Error loading discounted products</div>
+    </section>
+  );
+
+  if (!discountedProducts.length) return (
+    <section className="w-full mx-auto my-10" data-aos="fade-up">
+      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
+      <div className="text-center text-gray-600">No discounted products available at the moment</div>
+    </section>
+  );
 
   return (
     <section className="w-full mx-auto my-10" data-aos="fade-up">
@@ -37,10 +70,14 @@ const DiscountProductsSlider = () => {
           }}
           className="!px-2"
         >
-          {products.map((product) => (
-            <SwiperSlide key={product.id} className="flex justify-between items-center">
+          {discountedProducts.map((product) => (
+            <SwiperSlide key={product._id || product.id} className="flex justify-between items-center">
               <DiscountedProductCard
-                {...product}
+                image={product.imageUrl}
+                name={product.name}
+                price={product.discountPrice || product.price}
+                oldPrice={product.discounted ? product.price : null}
+                discount={product.discountPercent ? `${product.discountPercent}% OFF` : "SALE"}
                 onView={() => alert(`View: ${product.name}`)}
                 onAddToCart={() => alert(`Added to cart: ${product.name}`)}
               />

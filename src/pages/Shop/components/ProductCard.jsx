@@ -1,7 +1,7 @@
 import React from "react";
 import { FaStar, FaRegStar, FaShoppingCart, FaEye } from "react-icons/fa";
 
-const ProductCard = ({ product, view }) => {
+const ProductCard = ({ product, view, onViewDetails }) => {
   const {
     name,
     category,
@@ -49,9 +49,7 @@ const ProductCard = ({ product, view }) => {
         <img
           src={imageUrl}
           alt={name}
-          className={`w-full h-full ${
-            view === "list" ? "object-cover" : "object-contain"
-          }`}
+          className={"w-full h-full object-cover"}
         />
       </div>
 
@@ -112,6 +110,7 @@ const ProductCard = ({ product, view }) => {
             <button
               className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition"
               title="View Details"
+              onClick={() => onViewDetails && onViewDetails(product)}
             >
               <FaEye />
             </button>
@@ -132,6 +131,7 @@ const ProductCard = ({ product, view }) => {
           <button
             className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition"
             title="View Details"
+            onClick={() => onViewDetails && onViewDetails(product)}
           >
             <FaEye />
           </button>

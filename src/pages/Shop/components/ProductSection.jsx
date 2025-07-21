@@ -4,12 +4,17 @@ import ResultsBar from "./ResultBar";
 import SortDropdown from "./SortDropdown";
 import ViewToggle from "./ViewToggle";
 import ProductList from "./ProductList";
+import ProductDetailsModal from "./ProductDetailsModal";
 
 const ProductSection = ({ products, isLoading, isError, error }) => {
   // State for sorting and grid/list view
   const [view, setView] = useState("grid");
   const [sort, setSort] = useState("featured");
   
+  // Modal state
+  const [modalProduct, setModalProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
@@ -47,6 +52,26 @@ const ProductSection = ({ products, isLoading, isError, error }) => {
     setCurrentPage(page);
     // Scroll to top of product section
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Modal handlers
+  const handleViewDetails = (product) => {
+    setModalProduct(product);
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setModalProduct(null);
+  };
+  const handleAddToCart = (product) => {
+    // TODO: Implement add to cart logic
+    alert(`Added to cart: ${product.name} (x${product.quantity})`);
+    handleCloseModal();
+  };
+  const handleBuyNow = (product) => {
+    // TODO: Implement buy now logic
+    alert(`Buy now: ${product.name} (x${product.quantity})`);
+    handleCloseModal();
   };
 
   // Generate page numbers for pagination
@@ -96,6 +121,13 @@ const ProductSection = ({ products, isLoading, isError, error }) => {
 
   return (
     <>
+      <ProductDetailsModal
+        product={modalProduct}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onAddToCart={handleAddToCart}
+        onBuyNow={handleBuyNow}
+      />
       <div className="w-full border-1 border-[#396961] rounded-2xl px-3 sm:px-4 py-4 sm:py-8 mb-8">
         {/* Mobile Layout - Stacked */}
         <div className="flex flex-col gap-3 sm:hidden ">
@@ -128,7 +160,7 @@ const ProductSection = ({ products, isLoading, isError, error }) => {
         </div>
       </div>
       
-      <ProductList products={currentProducts} view={view} />
+      <ProductList products={currentProducts} view={view} onViewDetails={handleViewDetails} />
       
       {/* Pagination */}
       {totalPages > 1 && (
