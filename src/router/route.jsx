@@ -5,6 +5,11 @@ import ShopPage from "../pages/Shop/ShopPage";
 import CategoryDetails from "../pages/Category/CategoryDetails";
 import CartPage from "../pages/CartPage";
 import Checkout from "../pages/Checkout";
+import PrivateRoute from "../routes/PrivateRoute";
+import SignInForm from "../pages/Authentication/SignInForm";
+import SignUpForm from "../pages/Authentication/SignUpForm";
+import LoginPage from "../pages/Authentication/LoginPage";
+import RegistrationPage from "../pages/Authentication/RegistrationPage";
 
 
 export const route = createBrowserRouter([
@@ -29,10 +34,14 @@ export const route = createBrowserRouter([
         path: '/category/:categoryName',
         element: <CategoryDetails />,
       },
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
     ],
   },
   {
     path: '/checkout',
-    element: <Checkout />,
+    element: <PrivateRoute><Checkout /></PrivateRoute>,
   }
 ]);

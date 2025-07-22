@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SignInForm from "../pages/SignInUp/SignInForm";
-import SignUpForm from "../pages/SignInUp/SignUpForm";
+import SignInForm from "../pages/Authentication/SignInForm";
+import SignUpForm from "../pages/Authentication/SignUpForm";
 
 
 const AuthModal = ({ isOpen, onClose }) => {
@@ -9,7 +9,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="relative w-full max-w-xl h-[570px] perspective">
         <div
           className={`absolute w-full h-full transition-transform duration-500 [transform-style:preserve-3d] ${

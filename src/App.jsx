@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router";
-import { route } from "./routes/route.jsx";
+import { route } from "./router/route.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Aos from "aos";
 import "aos/dist/aos.css";

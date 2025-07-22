@@ -1,19 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { FaRegUser, FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router";
 import Logo from "../utility/Logo";
 import AuthModal from "../utility/AuthModal";
 import { useCart } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
+import { FaChevronDown } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showDropdownDesktop, setShowDropdownDesktop] = useState(false);
+  const [showDropdownMobile, setShowDropdownMobile] = useState(false);
   const { cart } = useCart();
+  const { user, logOut } = useContext(AuthContext);
   const cartCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const dropdownRefDesktop = useRef(null);
+  const dropdownRefMobile = useRef(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  // Close desktop dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRefDesktop.current && !dropdownRefDesktop.current.contains(event.target)) {
+        setShowDropdownDesktop(false);
+      }
+    }
+    if (showDropdownDesktop) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdownDesktop]);
+
+  // Close mobile dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRefMobile.current && !dropdownRefMobile.current.contains(event.target)) {
+        setShowDropdownMobile(false);
+      }
+    }
+    if (showDropdownMobile) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdownMobile]);
+
+  const handleLogout = async (isDesktop) => {
+    await logOut();
+    if (isDesktop) setShowDropdownDesktop(false);
+    else setShowDropdownMobile(false);
+    Swal.fire({
+      icon: "success",
+      title: "Logged out!",
+      text: "You have been successfully logged out.",
+      timer: 1800,
+      showConfirmButton: false,
+      position: "top-end",
+      toast: true,
+    });
+  };
+
+  // Helper for avatar
+  const avatarUrl = user?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.displayName || user?.email || "U")}&background=2e7153&color=fff&rounded=true&size=64`;
 
   return (
     <>
@@ -91,14 +151,43 @@ const Navbar = () => {
 
           {/* Desktop Right Side */}
           <div className="navbar-end hidden lg:flex items-center gap-4 text-xl text-white">
-            {/* Log in Button */}
-            <button
-              className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition-colors"
-              onClick={() => setShowModal(true)}
-            >
-              <FaRegUser size={22} />
-              <span>Join Us</span>
-            </button>
+            {/* Log in Button or Avatar */}
+            {!user ? (
+              <button
+                className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition-colors"
+                onClick={() => setShowModal(true)}
+              >
+                <FaRegUser size={22} />
+                <span>Join Us</span>
+              </button>
+            ) : (
+              <div className="relative" ref={dropdownRefDesktop}>
+                <button
+                  className="flex items-center gap-2 px-2 py-1 bg-white rounded-full hover:bg-gray-200 transition-colors border border-gray-200 focus:outline-none"
+                  onClick={() => setShowDropdownDesktop((v) => !v)}
+                >
+                  <img
+                    src={avatarUrl}
+                    alt="User Avatar"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-[#2e7153]"
+                  />
+                  <FaChevronDown className="text-[#2e7153]" />
+                </button>
+                {showDropdownDesktop && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); /* navigate to update profile */ }}>
+                      Update Profile
+                    </button>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); /* navigate to dashboard */ }}>
+                      Dashboard
+                    </button>
+                    <button className="px-4 py-2 hover:bg-red-100 text-left text-red-600 font-semibold" onClick={() => handleLogout(true)}>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             <NavLink
               to="/cart"
@@ -116,15 +205,44 @@ const Navbar = () => {
             </NavLink>
           </div>
 
-          {/* Mobile Right Side - Only Join Us button */}
+          {/* Mobile Right Side - Only Join Us button or Avatar */}
           <div className="navbar-end lg:hidden">
-            <button
-              className="flex items-center gap-1 px-2 py-1 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition-colors"
-              onClick={() => setShowModal(true)}
-            >
-              <FaRegUser size={18} />
-              <span className="text-sm">Join</span>
-            </button>
+            {!user ? (
+              <button
+                className="flex items-center gap-1 px-2 py-1 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition-colors"
+                onClick={() => setShowModal(true)}
+              >
+                <FaRegUser size={18} />
+                <span className="text-sm">Join</span>
+              </button>
+            ) : (
+              <div className="relative" ref={dropdownRefMobile}>
+                <button
+                  className="flex items-center gap-1 px-1 py-1 bg-white rounded-full hover:bg-gray-200 transition-colors border border-gray-200 focus:outline-none"
+                  onClick={() => setShowDropdownMobile((v) => !v)}
+                >
+                  <img
+                    src={avatarUrl}
+                    alt="User Avatar"
+                    className="w-8 h-8 rounded-full object-cover border-2 border-[#2e7153]"
+                  />
+                  <FaChevronDown className="text-[#2e7153] text-xs" />
+                </button>
+                {showDropdownMobile && (
+                  <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); /* navigate to update profile */ }}>
+                      Update Profile
+                    </button>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); /* navigate to dashboard */ }}>
+                      Dashboard
+                    </button>
+                    <button className="px-4 py-2 hover:bg-red-100 text-left text-red-600 font-semibold" onClick={() => handleLogout(false)}>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
