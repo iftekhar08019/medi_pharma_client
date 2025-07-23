@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SignInForm from "./SignInForm";
 import RegistrationPage from "./RegistrationPage";
 import { useNavigate, useLocation } from "react-router";
-import useAuth from "../../hooks/useAuth";
+
 
 const LoginPage = () => {
   const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useAuth();
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, navigate]);
 
   // Animation classes
   const transitionClass =

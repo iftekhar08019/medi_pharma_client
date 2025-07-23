@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useCart } from "../../../context/CartContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const ProductDetailsModal = ({ product, isOpen, onClose, onBuyNow }) => {
   const [quantity, setQuantity] = useState(1);
   const [weight, setWeight] = useState("");
   const [benefit, setBenefit] = useState("");
   const { dispatch } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (product) {
@@ -43,6 +45,8 @@ const ProductDetailsModal = ({ product, isOpen, onClose, onBuyNow }) => {
   };
   const handleBuyNow = () => {
     onBuyNow && onBuyNow({ ...product, quantity, selectedWeight: weight, selectedBenefit: benefit });
+    dispatch({ type: "ADD", product: { ...product, selectedWeight: weight, selectedBenefit: benefit }, quantity });
+    navigate("/checkout");
   };
 
   return (

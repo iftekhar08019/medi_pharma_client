@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { FaRegUser, FaShoppingCart } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import Logo from "../utility/Logo";
 import AuthModal from "../utility/AuthModal";
 import { useCart } from "../context/CartContext";
@@ -18,7 +18,7 @@ const Navbar = () => {
   const cartCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const dropdownRefDesktop = useRef(null);
   const dropdownRefMobile = useRef(null);
-
+  const navigate = useNavigate();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -178,7 +178,7 @@ const Navbar = () => {
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); /* navigate to update profile */ }}>
                       Update Profile
                     </button>
-                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); /* navigate to dashboard */ }}>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/dashboard') }}>
                       Dashboard
                     </button>
                     <button className="px-4 py-2 hover:bg-red-100 text-left text-red-600 font-semibold" onClick={() => handleLogout(true)}>

@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import ProductDetailsModal from "../Shop/components/ProductDetailsModal";
 import useAxios from "../../hooks/useAxios";
+import toast from "react-hot-toast";
+import { useCart } from "../../context/CartContext";
 
 const typeLabels = {
   tablet: "Tablet",
@@ -28,6 +30,10 @@ const CategoryDetails = () => {
   const { categoryName } = useParams();
   const [modalProduct, setModalProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [weight, setWeight] = useState("");
+  const [benefit, setBenefit] = useState("");
+  const { dispatch } = useCart();
   const axios = useAxios();
 
   const { data: products = [], isLoading, isError } = useQuery({
@@ -50,8 +56,8 @@ const CategoryDetails = () => {
     setModalProduct(null);
   };
   const handleAddToCart = (product) => {
-    alert(`Added to cart: ${product.name} (x${product.quantity || 1})`);
-    handleCloseModal();
+    dispatch({ type: "ADD", product: { ...product, selectedWeight: weight, selectedBenefit: benefit }, quantity });
+    toast.success("Product added to cart!");
   };
 
   if (isLoading) return <div className="p-8 text-center">Loading...</div>;
@@ -134,7 +140,7 @@ const CategoryDetails = () => {
                     disabled={!product.inStock}
                     onClick={() => handleAddToCart(product)}
                   >
-                    Select
+                    Add to Cart
                   </button>
                   <button
                     className="bg-[#eaf3eb] text-gray-700 px-2 py-1 rounded-lg hover:bg-gray-200 transition text-xs sm:text-base"

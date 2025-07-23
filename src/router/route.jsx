@@ -6,10 +6,13 @@ import CategoryDetails from "../pages/Category/CategoryDetails";
 import CartPage from "../pages/CartPage";
 import Checkout from "../pages/Checkout";
 import PrivateRoute from "../routes/PrivateRoute";
-import SignInForm from "../pages/Authentication/SignInForm";
-import SignUpForm from "../pages/Authentication/SignUpForm";
+
 import LoginPage from "../pages/Authentication/LoginPage";
-import RegistrationPage from "../pages/Authentication/RegistrationPage";
+
+import InvoicePage from "../pages/InvoicePage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AdminHome from "../pages/Dashboard/AdminHome";
+import ManageUsers from "../pages/Dashboard/ManageUsers";
 
 
 export const route = createBrowserRouter([
@@ -43,5 +46,29 @@ export const route = createBrowserRouter([
   {
     path: '/checkout',
     element: <PrivateRoute><Checkout /></PrivateRoute>,
-  }
+  },
+  {
+    path: '/invoice',
+    element: <InvoicePage />,
+  },
+  {
+    path: '/dashboard',
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminHome />,
+      },
+      {
+        path: '/dashboard/admin-home',
+        element: <AdminHome />,
+      },
+      {
+        path: '/dashboard/manage-users',
+        element: <ManageUsers />,
+      },
+      
+      
+    ],
+  },
 ]);
