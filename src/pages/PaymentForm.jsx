@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import useAxios from '../utility/useAxios';
+
 import { useNavigate } from "react-router";
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { AuthContext } from "../context/AuthContext";
+import useAxios from "../hooks/useAxios";
 
 const PaymentForm = ({ amount, invoiceData }) => {
   const stripe = useStripe();

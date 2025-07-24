@@ -1,8 +1,9 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxios from "../../utility/useAxios";
+
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAxios from "../../hooks/useAxios";
 
 const ManageUsers = () => {
   const axiosInstance = useAxios();

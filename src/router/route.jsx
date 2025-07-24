@@ -13,6 +13,7 @@ import InvoicePage from "../pages/InvoicePage";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AdminHome from "../pages/Dashboard/AdminHome";
 import ManageUsers from "../pages/Dashboard/ManageUsers";
+import ManageCategory from "../pages/Dashboard/ManageCategory";
 
 
 export const route = createBrowserRouter([
@@ -67,8 +68,10 @@ export const route = createBrowserRouter([
         path: '/dashboard/manage-users',
         element: <ManageUsers />,
       },
-      
-      
+      {
+        path: '/dashboard/manage-category',
+        element: <ManageCategory />,
+      },
     ],
   },
 ]);

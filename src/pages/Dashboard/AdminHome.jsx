@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../utility/useAxios";
+
 import { Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
+import useAxios from "../../hooks/useAxios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
