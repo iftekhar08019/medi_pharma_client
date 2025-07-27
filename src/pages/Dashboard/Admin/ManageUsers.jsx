@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
+import { AuthContext } from "../../../context/AuthContext";
 
 const ManageUsers = () => {
   const axiosInstance = useAxios();
   const queryClient = useQueryClient();
+  const { user: currentUser } = useContext(AuthContext);
 
   const { data: users = [], isLoading, error } = useQuery({
     queryKey: ["users"],
@@ -82,32 +83,38 @@ const ManageUsers = () => {
                 <td className="px-2 py-2 capitalize">{user.role}</td>
                 <td className="hidden sm:table-cell px-2 py-2">{user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "-"}</td>
                 <td className="px-2 py-2 flex flex-col sm:flex-row gap-2">
-                  {user.role !== "admin" && (
-                    <button
-                      className="bg-[#5DD39E] text-white px-3 py-1 rounded hover:bg-[#396961] transition text-xs font-semibold"
-                      onClick={() => handleRoleChange(user, "admin")}
-                      disabled={roleMutation.isLoading}
-                    >
-                      Make Admin
-                    </button>
-                  )}
-                  {user.role !== "seller" && (
-                    <button
-                      className="bg-[#3a8a6b] text-white px-3 py-1 rounded hover:bg-[#28524c] transition text-xs font-semibold"
-                      onClick={() => handleRoleChange(user, "seller")}
-                      disabled={roleMutation.isLoading}
-                    >
-                      Make Seller
-                    </button>
-                  )}
-                  {user.role !== "user" && (
-                    <button
-                      className="bg-[#eaf3ec] text-[#396961] px-3 py-1 rounded border border-[#396961] hover:bg-[#c2e0d6] transition text-xs font-semibold"
-                      onClick={() => handleRoleChange(user, "user")}
-                      disabled={roleMutation.isLoading}
-                    >
-                      Downgrade to User
-                    </button>
+                  {user.email !== currentUser?.email ? (
+                    <>
+                      {user.role !== "admin" && (
+                        <button
+                          className="bg-[#5DD39E] text-white px-3 py-1 rounded hover:bg-[#396961] transition text-xs font-semibold"
+                          onClick={() => handleRoleChange(user, "admin")}
+                          disabled={roleMutation.isLoading}
+                        >
+                          Make Admin
+                        </button>
+                      )}
+                      {user.role !== "seller" && (
+                        <button
+                          className="bg-[#3a8a6b] text-white px-3 py-1 rounded hover:bg-[#28524c] transition text-xs font-semibold"
+                          onClick={() => handleRoleChange(user, "seller")}
+                          disabled={roleMutation.isLoading}
+                        >
+                          Make Seller
+                        </button>
+                      )}
+                      {user.role !== "user" && (
+                        <button
+                          className="bg-[#eaf3ec] text-[#396961] px-3 py-1 rounded border border-[#396961] hover:bg-[#c2e0d6] transition text-xs font-semibold"
+                          onClick={() => handleRoleChange(user, "user")}
+                          disabled={roleMutation.isLoading}
+                        >
+                          Downgrade to User
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <span className="text-xs text-gray-400">Cannot change your own role</span>
                   )}
                 </td>
               </tr>
@@ -119,4 +126,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers; 
+export default ManageUsers;

@@ -20,11 +20,12 @@ import ManageBannerAdvertise from "../pages/Dashboard/Admin/ManageBannerAdvertis
 import AdminRoute from "../routes/AdminRoute";
 import SellerRoute from "../routes/SellerRoute";
 import RoleRedirect from "../pages/Dashboard/RoleRedirect";
-import UserHome from "../pages/Dashboard/User/UserHome";
+import UserHome from "../pages/Dashboard/User/UserPaymentHistory";
 import SellerHome from "../pages/Dashboard/Seller/SellerHome";
 import ManageMedicines from "../pages/Dashboard/Seller/ManageMedicines";
 import PaymentHistory from "../pages/Dashboard/Seller/PaymentHistory";
 import AskForAdvertisement from "../pages/Dashboard/Seller/AskForAdvertisement";
+import UserPaymentHistory from "../pages/Dashboard/User/UserPaymentHistory";
 
 export const route = createBrowserRouter([
   {
@@ -119,10 +120,10 @@ export const route = createBrowserRouter([
         ),
       },
       {
-        path: "user-home",
+        path: "user-payments",
         element: (
           <PrivateRoute>
-            <UserHome />
+            <UserPaymentHistory />
           </PrivateRoute>
         ),
       },

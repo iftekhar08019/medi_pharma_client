@@ -71,11 +71,7 @@ const sellerMenu = [
 ];
 
 const userMenu = [
-  {
-    name: "User Home",
-    icon: <FaHome className="text-xl" />,
-    path: "/dashboard/user-home",
-  },
+
   {
     name: "Payment History",
     icon: <FaHistory className="text-xl" />,
