@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router"; // Use react-router-dom!
 import {
   FaHome,
   FaUsers,
@@ -6,12 +6,17 @@ import {
   FaMoneyCheckAlt,
   FaChartBar,
   FaAd,
+  FaPills,
+  FaHistory,
+  FaBullhorn,
 } from "react-icons/fa";
 import Logo from "../../utility/Logo";
+import useUserRole from "../../hooks/useUserRole";
 
-const menuItems = [
+
+const adminMenu = [
   {
-    name: "Home",
+    name: "Admin Home",
     icon: <FaHome className="text-xl" />,
     path: "/dashboard/admin-home",
   },
@@ -42,7 +47,58 @@ const menuItems = [
   },
 ];
 
+const sellerMenu = [
+  {
+    name: "Seller Home",
+    icon: <FaHome className="text-xl" />,
+    path: "/dashboard/seller-home",
+  },
+  {
+    name: "Manage Medicines",
+    icon: <FaPills className="text-xl" />,
+    path: "/dashboard/manage-medicines",
+  },
+  {
+    name: "Payment History",
+    icon: <FaHistory className="text-xl" />,
+    path: "/dashboard/seller-payments",
+  },
+  {
+    name: "Ask For Advertisement",
+    icon: <FaBullhorn className="text-xl" />,
+    path: "/dashboard/seller-advertise",
+  },
+];
+
+const userMenu = [
+  {
+    name: "User Home",
+    icon: <FaHome className="text-xl" />,
+    path: "/dashboard/user-home",
+  },
+  {
+    name: "Payment History",
+    icon: <FaHistory className="text-xl" />,
+    path: "/dashboard/user-payments",
+  },
+];
+
 const Sidebar = () => {
+  const { role, roleLoading } = useUserRole();
+
+  if (roleLoading) {
+    return (
+      <aside className="h-full min-h-screen w-20 md:w-64 bg-[#396961] text-white flex flex-col py-8 px-2 md:px-4 font-outfit shadow-lg transition-all duration-300">
+        <h1 className="text-center text-white text-lg font-bold">Loading...</h1>
+      </aside>
+    );
+  }
+
+  let menu = [];
+  if (role === "admin") menu = adminMenu;
+  else if (role === "seller") menu = sellerMenu;
+  else menu = userMenu;
+
   return (
     <aside className="h-full min-h-screen w-20 md:w-64 bg-[#396961] text-white flex flex-col py-8 px-2 md:px-4 font-outfit shadow-lg transition-all duration-300">
       {/* Logo and Heading: show only on md+ */}
@@ -53,7 +109,7 @@ const Sidebar = () => {
         Dashboard
       </h2>
       <nav className="flex flex-col gap-2">
-        {menuItems.map((item) => (
+        {menu.map((item) => (
           <NavLink
             key={item.name}
             to={item.path}

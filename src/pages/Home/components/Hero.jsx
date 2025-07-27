@@ -22,6 +22,7 @@ const Hero = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ads</div>;
+  const sliderAds = adsData.filter(ad => ad.showInSlider);
   return (
     <div className="relative rounded-xl overflow-hidden">
       <Swiper
@@ -36,7 +37,7 @@ const Hero = () => {
         }}
         className="hero-swiper rounded-xl"
       >
-        {adsData.map((ad, index) => (
+        {sliderAds.map((ad, index) => (
           <SwiperSlide key={index}>
             <div
               className="relative min-h-[70vh] bg-cover bg-center rounded-xl"

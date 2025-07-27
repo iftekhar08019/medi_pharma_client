@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

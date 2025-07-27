@@ -9,7 +9,6 @@ const DashboardLayout = () => {
       <Sidebar />
       <div className="flex-2/3">
         <div>
-       
           <Outlet />
         </div>
       </div>

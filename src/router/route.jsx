@@ -11,10 +11,17 @@ import LoginPage from "../pages/Authentication/LoginPage";
 
 import InvoicePage from "../pages/InvoicePage";
 import DashboardLayout from "../layouts/DashboardLayout";
-import AdminHome from "../pages/Dashboard/AdminHome";
-import ManageUsers from "../pages/Dashboard/ManageUsers";
-import ManageCategory from "../pages/Dashboard/ManageCategory";
-
+import AdminHome from "../pages/Dashboard/Admin/AdminHome";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import ManageCategory from "../pages/Dashboard/Admin/ManageCategory";
+import ManagePayments from "../pages/Dashboard/Admin/ManagePayments";
+import SalesReport from "../pages/Dashboard/Admin/SalesReport";
+import ManageBannerAdvertise from "../pages/Dashboard/Admin/ManageBannerAdvertise";
+import AdminRoute from "../routes/AdminRoute";
+import SellerRoute from "../routes/SellerRoute";
+import RoleRedirect from "../pages/Dashboard/RoleRedirect";
+import UserHome from "../pages/Dashboard/User/UserHome";
+import SellerHome from "../pages/Dashboard/Seller/SellerHome";
 
 export const route = createBrowserRouter([
   {
@@ -35,42 +42,103 @@ export const route = createBrowserRouter([
       },
 
       {
-        path: '/category/:categoryName',
+        path: "/category/:categoryName",
         element: <CategoryDetails />,
       },
       {
-        path: '/login',
+        path: "/login",
         element: <LoginPage />,
       },
     ],
   },
   {
-    path: '/checkout',
-    element: <PrivateRoute><Checkout /></PrivateRoute>,
+    path: "/checkout",
+    element: (
+      <PrivateRoute>
+        <Checkout />
+      </PrivateRoute>
+    ),
   },
   {
-    path: '/invoice',
+    path: "/invoice",
     element: <InvoicePage />,
   },
   {
-    path: '/dashboard',
-    element: <DashboardLayout />,
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <AdminHome />,
+        Component: RoleRedirect, // Redirects based on user role
       },
       {
-        path: '/dashboard/admin-home',
-        element: <AdminHome />,
+        path: "admin-home",
+        element: (
+          <AdminRoute>
+            <AdminHome />
+          </AdminRoute>
+        ),
       },
       {
-        path: '/dashboard/manage-users',
-        element: <ManageUsers />,
+        path: "seller-home",
+        element: (
+          <SellerRoute>
+            <SellerHome />
+          </SellerRoute>
+        ),
       },
       {
-        path: '/dashboard/manage-category',
-        element: <ManageCategory />,
+        path: "user-home",
+        element: (
+          <PrivateRoute>
+            <UserHome />
+          </PrivateRoute>
+        ),
+      },
+      // **NO SLASH!**
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-category",
+        element: (
+          <AdminRoute>
+            <ManageCategory />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "payment-management",
+        element: (
+          <AdminRoute>
+            <ManagePayments />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "sales-report",
+        element: (
+          <AdminRoute>
+            <SalesReport />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-banner",
+        element: (
+          <AdminRoute>
+            <ManageBannerAdvertise />
+          </AdminRoute>
+        ),
       },
     ],
   },

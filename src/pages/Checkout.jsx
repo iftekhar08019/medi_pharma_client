@@ -2,21 +2,60 @@ import React, { useContext, useMemo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCart } from "../context/CartContext";
 import Logo from "../utility/Logo";
-import { FaLock, FaCreditCard } from "react-icons/fa";
+import { FaLock, FaCreditCard, FaExclamationTriangle } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
 import { useNavigate } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../hooks/useAxios";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const Checkout = () => {
   const { cart } = useCart();
+  const axios = useAxios();
   const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
   const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Fetch current stock data
+  const { data: products = [] } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const res = await axios.get("/products");
+      return res.data;
+    },
+  });
+
+  // Check stock availability
+  const stockIssues = useMemo(() => {
+    if (!products.length || !cart.length) return [];
+    
+    return cart.map(item => {
+      const product = products.find(p => p._id === item._id);
+      if (!product) return { item, issue: "Product not found" };
+      
+      const requestedQuantity = item.quantity || 1;
+      if (product.stockCount < requestedQuantity) {
+        return { 
+          item, 
+          issue: `Only ${product.stockCount} available`, 
+          available: product.stockCount 
+        };
+      }
+      if (product.stockCount <= 5) {
+        return { 
+          item, 
+          issue: "Low stock", 
+          available: product.stockCount 
+        };
+      }
+      return null;
+    }).filter(Boolean);
+  }, [cart, products]);
 
   // Country list state
   const [countries, setCountries] = useState(["Bangladesh"]);
@@ -93,6 +132,24 @@ const Checkout = () => {
       <main className=" flex flex-col lg:flex-row w-full  mx-auto bg-transparent">
         {/* Left: Forms */}
         <div className="w-full lg:w-1/2 bg-[#396961] p-6 sm:p-10 flex flex-col gap-6">
+          {/* Stock Warnings */}
+          {stockIssues.length > 0 && (
+            <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded">
+              <div className="flex items-center gap-2 mb-2">
+                <FaExclamationTriangle />
+                <span className="font-semibold">Stock Issues</span>
+              </div>
+              {stockIssues.map((issue, idx) => (
+                <div key={idx} className="text-sm">
+                  <strong>{issue.item.name}</strong>: {issue.issue}
+                  {issue.available !== undefined && (
+                    <span className="text-yellow-600"> (Available: {issue.available})</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          
           {/* Contact */}
           <div>
             <h2 className="text-white text-lg font-bold mb-2">Contact</h2>
@@ -168,7 +225,11 @@ const Checkout = () => {
               </div>
               {/* Stripe PaymentForm */}
               <Elements stripe={stripePromise}>
-                <PaymentForm amount={subtotal} invoiceData={invoiceData} />
+                <PaymentForm 
+                  amount={subtotal} 
+                  invoiceData={invoiceData} 
+                  disabled={stockIssues.some(issue => issue.issue.includes("Only"))}
+                />
               </Elements>
             </div>
           </div>
@@ -191,19 +252,25 @@ const Checkout = () => {
           </div>
           <h2 className="text-lg font-bold mb-4">{cart.length > 0 ? `Subtotal · ${totalItems} item${totalItems > 1 ? "s" : ""}` : "Your cart is empty"}</h2>
           <div className="flex flex-col gap-4">
-            {cart.map((item, idx) => (
-              <div key={item._id || idx} className="flex items-center gap-4 border-b pb-4">
-                <div className="relative">
-                  <img src={item.imageUrl} alt={item.name} className="w-16 h-16 rounded object-cover border" />
-                  <span className="absolute -top-2 -right-2 bg-[#2e7153] text-white text-xs font-bold rounded-full px-2 py-0.5 min-w-[20px] text-center border-2 border-white">{item.quantity || 1}</span>
+            {cart.map((item, idx) => {
+              const stockIssue = stockIssues.find(issue => issue.item._id === item._id);
+              return (
+                <div key={item._id || idx} className="flex items-center gap-4 border-b pb-4">
+                  <div className="relative">
+                    <img src={item.imageUrl} alt={item.name} className="w-16 h-16 rounded object-cover border" />
+                    <span className="absolute -top-2 -right-2 bg-[#2e7153] text-white text-xs font-bold rounded-full px-2 py-0.5 min-w-[20px] text-center border-2 border-white">{item.quantity || 1}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-semibold">{item.name}</div>
+                    <div className="text-xs text-gray-500">{item.weight || item.itemForm || ""}</div>
+                    {stockIssue && (
+                      <div className="text-xs text-red-500">{stockIssue.issue}</div>
+                    )}
+                  </div>
+                   <div className="font-bold">€{item.price}</div>
                 </div>
-                <div className="flex-1">
-                  <div className="font-semibold">{item.name}</div>
-                  <div className="text-xs text-gray-500">{item.weight || item.itemForm || ""}</div>
-                </div>
-                 <div className="font-bold">€{item.price}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div className="flex flex-col gap-2 mt-4">
             <div className="flex justify-between text-base">
