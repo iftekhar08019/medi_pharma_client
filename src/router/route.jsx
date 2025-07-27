@@ -24,6 +24,7 @@ import UserHome from "../pages/Dashboard/User/UserHome";
 import SellerHome from "../pages/Dashboard/Seller/SellerHome";
 import ManageMedicines from "../pages/Dashboard/Seller/ManageMedicines";
 import PaymentHistory from "../pages/Dashboard/Seller/PaymentHistory";
+import AskForAdvertisement from "../pages/Dashboard/Seller/AskForAdvertisement";
 
 export const route = createBrowserRouter([
   {
@@ -106,6 +107,14 @@ export const route = createBrowserRouter([
         element: (
           <SellerRoute>
             <PaymentHistory />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "seller-advertise",
+        element: (
+          <SellerRoute>
+            <AskForAdvertisement />
           </SellerRoute>
         ),
       },
