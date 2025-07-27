@@ -23,6 +23,7 @@ import RoleRedirect from "../pages/Dashboard/RoleRedirect";
 import UserHome from "../pages/Dashboard/User/UserHome";
 import SellerHome from "../pages/Dashboard/Seller/SellerHome";
 import ManageMedicines from "../pages/Dashboard/Seller/ManageMedicines";
+import PaymentHistory from "../pages/Dashboard/Seller/PaymentHistory";
 
 export const route = createBrowserRouter([
   {
@@ -97,6 +98,14 @@ export const route = createBrowserRouter([
         element: (
           <SellerRoute>
             <ManageMedicines />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "seller-payments",
+        element: (
+          <SellerRoute>
+            <PaymentHistory />
           </SellerRoute>
         ),
       },
