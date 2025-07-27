@@ -22,6 +22,7 @@ import SellerRoute from "../routes/SellerRoute";
 import RoleRedirect from "../pages/Dashboard/RoleRedirect";
 import UserHome from "../pages/Dashboard/User/UserHome";
 import SellerHome from "../pages/Dashboard/Seller/SellerHome";
+import ManageMedicines from "../pages/Dashboard/Seller/ManageMedicines";
 
 export const route = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ export const route = createBrowserRouter([
         element: (
           <SellerRoute>
             <SellerHome />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "manage-medicines",
+        element: (
+          <SellerRoute>
+            <ManageMedicines />
           </SellerRoute>
         ),
       },
