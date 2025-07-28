@@ -3,7 +3,8 @@ import { useState } from "react";
 import SidebarFilters from "./components/SidebarFilters";
 import useAxios from "../../hooks/useAxios";
 import ProductSection from "./components/ProductSection";
-import { Link } from "react-router"; // Use "react-router-dom" if you're using v6+
+import { Link } from "react-router"; // Or "react-router-dom" if v6+
+import { Helmet } from 'react-helmet';
 
 const fetchProducts = async (axiosInstance) => {
   const res = await axiosInstance.get("/products");
@@ -13,6 +14,7 @@ const fetchProducts = async (axiosInstance) => {
 const ShopPage = () => {
   const axiosInstance = useAxios();
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const {
     data: products,
@@ -29,39 +31,65 @@ const ShopPage = () => {
     setFilteredProducts(filteredResults);
   };
 
+  // Search Logic
+  const filteredBySearch = (filteredProducts.length > 0 ? filteredProducts : products)?.filter((product) => {
+    if (!searchTerm) return true;
+    const search = searchTerm.toLowerCase();
+    return (
+      product.name?.toLowerCase().includes(search) ||
+      product.genericName?.toLowerCase().includes(search) ||
+      product.company?.toLowerCase().includes(search)
+    );
+  });
+
   return (
-    <div className="rounded-3xl p-0 sm:p-0 min-h-screen w-full space-y-10">
-      <div className="w-full px-0 sm:px-0">
-        <div className="bg-[#396961] rounded-3xl w-full flex flex-col items-center justify-center py-10 sm:py-12">
-          <h1 className="text-5xl font-bold text-white mb-2 text-center">
-            Shop
-          </h1>
-          <nav className="flex items-center gap-2 text-white text-lg font-medium">
-            <Link to="/" className="hover:underline">
-              Home
-            </Link>
-            <span className="mx-1">{">"}</span>
-            <Link to="/shops" className="hover:underline">
+    <>
+      <Helmet>
+        <title>MediPharma - Shop</title>
+      </Helmet>
+      <div className="rounded-3xl p-0 sm:p-0 min-h-screen w-full space-y-10">
+        <div className="w-full px-0 sm:px-0">
+          <div className="bg-[#396961] rounded-3xl w-full flex flex-col items-center justify-center py-10 sm:py-12">
+            <h1 className="text-5xl font-bold text-white mb-2 text-center">
               Shop
-            </Link>
-          </nav>
+            </h1>
+            <nav className="flex items-center gap-2 text-white text-lg font-medium">
+              <Link to="/" className="hover:underline">
+                Home
+              </Link>
+              <span className="mx-1">{">"}</span>
+              <Link to="/shops" className="hover:underline">
+                Shop
+              </Link>
+            </nav>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col lg:flex-row gap-6">
-        <SidebarFilters 
-          onFiltersChange={handleFiltersChange}
-          products={products}
-        />
-        <div className="flex-1">
-          <ProductSection
-            products={filteredProducts.length > 0 ? filteredProducts : products}
-            isLoading={isLoading}
-            isError={isError}
-            error={error}
+        {/* --- Search Bar --- */}
+        <div className="w-full flex justify-center mb-6">
+          <input
+            type="text"
+            placeholder="Search medicine, generic name, or company..."
+            className="w-full max-w-xl border border-gray-300 rounded-xl px-4 py-2 text-lg shadow focus:outline-none focus:ring-2 focus:ring-[#396961]"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
           />
         </div>
+        <div className="flex flex-col lg:flex-row gap-6">
+          <SidebarFilters 
+            onFiltersChange={handleFiltersChange}
+            products={products}
+          />
+          <div className="flex-1">
+            <ProductSection
+              products={filteredBySearch}
+              isLoading={isLoading}
+              isError={isError}
+              error={error}
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
