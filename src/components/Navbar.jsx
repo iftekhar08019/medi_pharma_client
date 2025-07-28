@@ -7,18 +7,27 @@ import { useCart } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
 import { FaChevronDown } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "../context/LanguageContext";
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showDropdownDesktop, setShowDropdownDesktop] = useState(false);
   const [showDropdownMobile, setShowDropdownMobile] = useState(false);
+  const [showLanguageDropdownDesktop, setShowLanguageDropdownDesktop] = useState(false);
+  const [showLanguageDropdownMobile, setShowLanguageDropdownMobile] = useState(false);
   const { cart } = useCart();
   const { user, logOut } = useContext(AuthContext);
+  const { t } = useTranslation();
+  const { currentLanguage, changeLanguage } = useLanguage();
   const cartCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const dropdownRefDesktop = useRef(null);
   const dropdownRefMobile = useRef(null);
+  const languageDropdownRefDesktop = useRef(null);
+  const languageDropdownRefMobile = useRef(null);
   const navigate = useNavigate();
+  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -29,8 +38,11 @@ const Navbar = () => {
       if (dropdownRefDesktop.current && !dropdownRefDesktop.current.contains(event.target)) {
         setShowDropdownDesktop(false);
       }
+      if (languageDropdownRefDesktop.current && !languageDropdownRefDesktop.current.contains(event.target)) {
+        setShowLanguageDropdownDesktop(false);
+      }
     }
-    if (showDropdownDesktop) {
+    if (showDropdownDesktop || showLanguageDropdownDesktop) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -38,7 +50,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showDropdownDesktop]);
+  }, [showDropdownDesktop, showLanguageDropdownDesktop]);
 
   // Close mobile dropdown on outside click
   useEffect(() => {
@@ -46,8 +58,11 @@ const Navbar = () => {
       if (dropdownRefMobile.current && !dropdownRefMobile.current.contains(event.target)) {
         setShowDropdownMobile(false);
       }
+      if (languageDropdownRefMobile.current && !languageDropdownRefMobile.current.contains(event.target)) {
+        setShowLanguageDropdownMobile(false);
+      }
     }
-    if (showDropdownMobile) {
+    if (showDropdownMobile || showLanguageDropdownMobile) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -55,7 +70,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showDropdownMobile]);
+  }, [showDropdownMobile, showLanguageDropdownMobile]);
 
   const handleLogout = async (isDesktop) => {
     await logOut();
@@ -72,8 +87,22 @@ const Navbar = () => {
     });
   };
 
+  const handleLanguageChange = (language) => {
+    changeLanguage(language);
+    setShowLanguageDropdownDesktop(false);
+    setShowLanguageDropdownMobile(false);
+  };
+
   // Helper for avatar
   const avatarUrl = user?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.displayName || user?.email || "U")}&background=2e7153&color=fff&rounded=true&size=64`;
+
+  const getLanguageFlag = (lang) => {
+    return lang === 'en' ? '🇬🇧' : '🇩🇪';
+  };
+
+  const getLanguageName = (lang) => {
+    return lang === 'en' ? 'English' : 'Deutsch';
+  };
 
   return (
     <>
@@ -83,23 +112,30 @@ const Navbar = () => {
           <div className="navbar-start hidden lg:flex font-semibold text-white">
             <ul className="menu menu-horizontal px-1 text-xl">
               <li>
-                <NavLink to="/" className="hover:text-yellow-300 transition-colors">Home</NavLink>
+                <NavLink to="/" className="hover:text-yellow-300 transition-colors">{t('navbar.home')}</NavLink>
               </li>
               <li>
-                <NavLink to="/shops" className="hover:text-yellow-300 transition-colors">Shop</NavLink>
+                <NavLink to="/shops" className="hover:text-yellow-300 transition-colors">{t('navbar.shop')}</NavLink>
               </li>
               {/* Language dropdown */}
-              <li tabIndex={0}>
-                <details>
-                  <summary className="cursor-pointer flex items-center gap-2 hover:text-yellow-300 transition-colors">
-                    <span role="img" aria-label="flag">
-                      🇬🇧
-                    </span>
-                    <span>English</span>
-                  </summary>
-                  <ul className="p-2 bg-[#CEDDD1] text-black rounded-t-none w-36">
+              <li className="relative" ref={languageDropdownRefDesktop}>
+                <button 
+                  className="cursor-pointer flex items-center gap-2 hover:text-yellow-300 transition-colors"
+                  onClick={() => setShowLanguageDropdownDesktop(!showLanguageDropdownDesktop)}
+                >
+                  <span role="img" aria-label="flag">
+                    {getLanguageFlag(currentLanguage)}
+                  </span>
+                  <span>{getLanguageName(currentLanguage)}</span>
+                  <FaChevronDown className="text-xs" />
+                </button>
+                {showLanguageDropdownDesktop && (
+                  <ul className="absolute top-full left-0 mt-1 p-2 bg-[#CEDDD1] text-black rounded-lg w-36 shadow-lg z-50">
                     <li>
-                      <button className="flex items-center gap-2 w-full hover:bg-[#b8c9bc] transition-colors">
+                      <button 
+                        className="flex items-center gap-2 w-full hover:bg-[#b8c9bc] transition-colors p-2 rounded"
+                        onClick={() => handleLanguageChange('en')}
+                      >
                         <span role="img" aria-label="flag">
                           🇬🇧
                         </span>
@@ -107,7 +143,10 @@ const Navbar = () => {
                       </button>
                     </li>
                     <li>
-                      <button className="flex items-center gap-2 w-full hover:bg-[#b8c9bc] transition-colors">
+                      <button 
+                        className="flex items-center gap-2 w-full hover:bg-[#b8c9bc] transition-colors p-2 rounded"
+                        onClick={() => handleLanguageChange('de')}
+                      >
                         <span role="img" aria-label="flag">
                           🇩🇪
                         </span>
@@ -115,7 +154,7 @@ const Navbar = () => {
                       </button>
                     </li>
                   </ul>
-                </details>
+                )}
               </li>
             </ul>
           </div>
@@ -158,7 +197,7 @@ const Navbar = () => {
                 onClick={() => setShowModal(true)}
               >
                 <FaRegUser size={22} />
-                <span>Join Us</span>
+                <span>{t('navbar.joinUs')}</span>
               </button>
             ) : (
               <div className="relative" ref={dropdownRefDesktop}>
@@ -176,13 +215,13 @@ const Navbar = () => {
                 {showDropdownDesktop && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); /* navigate to update profile */ }}>
-                      Update Profile
+                      {t('navbar.updateProfile')}
                     </button>
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/dashboard') }}>
-                      Dashboard
+                      {t('navbar.dashboard')}
                     </button>
                     <button className="px-4 py-2 hover:bg-red-100 text-left text-red-600 font-semibold" onClick={() => handleLogout(true)}>
-                      Logout
+                      {t('navbar.logout')}
                     </button>
                   </div>
                 )}
@@ -201,7 +240,7 @@ const Navbar = () => {
                   </span>
                 )}
               </span>
-              <span>Cart</span>
+              <span>{t('navbar.cart')}</span>
             </NavLink>
           </div>
 
@@ -213,7 +252,7 @@ const Navbar = () => {
                 onClick={() => setShowModal(true)}
               >
                 <FaRegUser size={18} />
-                <span className="text-sm">Join</span>
+                <span className="text-sm">{t('navbar.joinUs')}</span>
               </button>
             ) : (
               <div className="relative" ref={dropdownRefMobile}>
@@ -231,13 +270,13 @@ const Navbar = () => {
                 {showDropdownMobile && (
                   <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); /* navigate to update profile */ }}>
-                      Update Profile
+                      {t('navbar.updateProfile')}
                     </button>
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); /* navigate to dashboard */ }}>
-                      Dashboard
+                      {t('navbar.dashboard')}
                     </button>
                     <button className="px-4 py-2 hover:bg-red-100 text-left text-red-600 font-semibold" onClick={() => handleLogout(false)}>
-                      Logout
+                      {t('navbar.logout')}
                     </button>
                   </div>
                 )}
@@ -256,7 +295,7 @@ const Navbar = () => {
                   className="block py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Home
+                  {t('navbar.home')}
                 </NavLink>
               </li>
               <li>
@@ -265,7 +304,7 @@ const Navbar = () => {
                   className="block py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Shop
+                  {t('navbar.shop')}
                 </NavLink>
               </li>
               <li>
@@ -282,21 +321,28 @@ const Navbar = () => {
                       </span>
                     )}
                   </span>
-                  <span>Cart</span>
+                  <span>{t('navbar.cart')}</span>
                 </NavLink>
               </li>
               {/* Language Dropdown for Mobile */}
-              <li>
-                <details className="dropdown">
-                  <summary className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium cursor-pointer">
-                    <span role="img" aria-label="flag">
-                      🇬🇧
-                    </span>
-                    <span>English</span>
-                  </summary>
+              <li className="relative" ref={languageDropdownRefMobile}>
+                <button 
+                  className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium cursor-pointer w-full text-left"
+                  onClick={() => setShowLanguageDropdownMobile(!showLanguageDropdownMobile)}
+                >
+                  <span role="img" aria-label="flag">
+                    {getLanguageFlag(currentLanguage)}
+                  </span>
+                  <span>{getLanguageName(currentLanguage)}</span>
+                  <FaChevronDown className="ml-auto" />
+                </button>
+                {showLanguageDropdownMobile && (
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
-                      <button className="flex items-center gap-2 w-full py-1 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm">
+                      <button 
+                        className="flex items-center gap-2 w-full py-1 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm"
+                        onClick={() => handleLanguageChange('en')}
+                      >
                         <span role="img" aria-label="flag">
                           🇬🇧
                         </span>
@@ -304,7 +350,10 @@ const Navbar = () => {
                       </button>
                     </li>
                     <li>
-                      <button className="flex items-center gap-2 w-full py-1 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm">
+                      <button 
+                        className="flex items-center gap-2 w-full py-1 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm"
+                        onClick={() => handleLanguageChange('de')}
+                      >
                         <span role="img" aria-label="flag">
                           🇩🇪
                         </span>
@@ -312,7 +361,7 @@ const Navbar = () => {
                       </button>
                     </li>
                   </ul>
-                </details>
+                )}
               </li>
             </ul>
           </div>

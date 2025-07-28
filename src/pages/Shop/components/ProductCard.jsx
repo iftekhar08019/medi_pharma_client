@@ -2,6 +2,7 @@ import React from "react";
 import { FaStar, FaRegStar, FaShoppingCart, FaEye } from "react-icons/fa";
 import { useCart } from "../../../context/CartContext";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const ProductCard = ({ product, view, onViewDetails }) => {
   const {
@@ -22,6 +23,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
   } = product;
 
   const { dispatch } = useCart();
+  const { t } = useTranslation();
 
   // Render stars for rating
   const renderStars = () => {
@@ -80,7 +82,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
           </div>
           {productBenefits && view !== "list" && (
             <div className="text-sm text-gray-600 mb-2 text-center">
-              Benefit: <span className="font-medium">{selectedBenefit}</span>
+              {t('common.description')}: <span className="font-medium">{selectedBenefit}</span>
             </div>
           )}
           <div className={`mb-2 ${view === "list" ? "" : "text-center"}`}>
@@ -99,9 +101,9 @@ const ProductCard = ({ product, view, onViewDetails }) => {
           </div>
           <div className={`text-xs text-gray-500 ${view === "list" ? "" : "text-center"}`}>
             {inStock ? (
-              <span>In stock ({stockCount})</span>
+              <span>{t('common.status')} ({stockCount})</span>
             ) : (
-              <span className="text-red-600 font-semibold">Out of stock</span>
+              <span className="text-red-600 font-semibold">{t('shop.productCard.outOfStock')}</span>
             )}
           </div>
         </div>
@@ -111,7 +113,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
           <div className="flex gap-2 mt-2 justify-center">
             <button
               className="bg-[#2e7153] text-white p-2 rounded-lg hover:bg-[#235b40] transition"
-              title="Add to Cart"
+              title={t('shop.productCard.addToCart')}
               disabled={!inStock}
               onClick={handleAddToCart}
             >
@@ -119,7 +121,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
             </button>
             <button
               className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition"
-              title="View Details"
+              title={t('shop.productCard.viewDetails')}
               onClick={() => onViewDetails && onViewDetails(product)}
             >
               <FaEye />
@@ -133,7 +135,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
         <div className="flex flex-col gap-2 justify-center">
           <button
             className="bg-[#2e7153] text-white p-2 rounded-lg hover:bg-[#235b40] transition"
-            title="Add to Cart"
+            title={t('shop.productCard.addToCart')}
             disabled={!inStock}
             onClick={handleAddToCart}
           >
@@ -141,7 +143,7 @@ const ProductCard = ({ product, view, onViewDetails }) => {
           </button>
           <button
             className="bg-gray-100 text-gray-700 p-2 rounded-lg hover:bg-gray-200 transition"
-            title="View Details"
+            title={t('shop.productCard.viewDetails')}
             onClick={() => onViewDetails && onViewDetails(product)}
           >
             <FaEye />

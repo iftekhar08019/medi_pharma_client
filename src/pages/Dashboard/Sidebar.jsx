@@ -12,80 +12,80 @@ import {
 } from "react-icons/fa";
 import Logo from "../../utility/Logo";
 import useUserRole from "../../hooks/useUserRole";
-
-
-const adminMenu = [
-  {
-    name: "Admin Home",
-    icon: <FaHome className="text-xl" />,
-    path: "/dashboard/admin-home",
-  },
-  {
-    name: "Manage Users",
-    icon: <FaUsers className="text-xl" />,
-    path: "/dashboard/manage-users",
-  },
-  {
-    name: "Manage Category",
-    icon: <FaListAlt className="text-xl" />,
-    path: "/dashboard/manage-category",
-  },
-  {
-    name: "Payment Management",
-    icon: <FaMoneyCheckAlt className="text-xl" />,
-    path: "/dashboard/payment-management",
-  },
-  {
-    name: "Sales Report",
-    icon: <FaChartBar className="text-xl" />,
-    path: "/dashboard/sales-report",
-  },
-  {
-    name: "Manage Banner Advertise",
-    icon: <FaAd className="text-xl" />,
-    path: "/dashboard/manage-banner",
-  },
-];
-
-const sellerMenu = [
-  {
-    name: "Seller Home",
-    icon: <FaHome className="text-xl" />,
-    path: "/dashboard/seller-home",
-  },
-  {
-    name: "Manage Medicines",
-    icon: <FaPills className="text-xl" />,
-    path: "/dashboard/manage-medicines",
-  },
-  {
-    name: "Payment History",
-    icon: <FaHistory className="text-xl" />,
-    path: "/dashboard/seller-payments",
-  },
-  {
-    name: "Ask For Advertisement",
-    icon: <FaBullhorn className="text-xl" />,
-    path: "/dashboard/seller-advertise",
-  },
-];
-
-const userMenu = [
-
-  {
-    name: "Payment History",
-    icon: <FaHistory className="text-xl" />,
-    path: "/dashboard/user-payments",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const { role, roleLoading } = useUserRole();
+  const { t } = useTranslation();
+
+  const adminMenu = [
+    {
+      name: t('dashboard.admin.home.title'),
+      icon: <FaHome className="text-xl" />,
+      path: "/dashboard/admin-home",
+    },
+    {
+      name: t('dashboard.admin.manageUsers.title'),
+      icon: <FaUsers className="text-xl" />,
+      path: "/dashboard/manage-users",
+    },
+    {
+      name: t('dashboard.admin.manageCategory.title'),
+      icon: <FaListAlt className="text-xl" />,
+      path: "/dashboard/manage-category",
+    },
+    {
+      name: t('dashboard.admin.managePayments.title'),
+      icon: <FaMoneyCheckAlt className="text-xl" />,
+      path: "/dashboard/payment-management",
+    },
+    {
+      name: t('dashboard.admin.salesReport.title'),
+      icon: <FaChartBar className="text-xl" />,
+      path: "/dashboard/sales-report",
+    },
+    {
+      name: t('dashboard.admin.manageBanner.title'),
+      icon: <FaAd className="text-xl" />,
+      path: "/dashboard/manage-banner",
+    },
+  ];
+
+  const sellerMenu = [
+    {
+      name: t('dashboard.seller.home.title'),
+      icon: <FaHome className="text-xl" />,
+      path: "/dashboard/seller-home",
+    },
+    {
+      name: t('dashboard.seller.manageMedicines.title'),
+      icon: <FaPills className="text-xl" />,
+      path: "/dashboard/manage-medicines",
+    },
+    {
+      name: t('dashboard.seller.paymentHistory.title'),
+      icon: <FaHistory className="text-xl" />,
+      path: "/dashboard/seller-payments",
+    },
+    {
+      name: t('dashboard.seller.askForAdvertisement.title'),
+      icon: <FaBullhorn className="text-xl" />,
+      path: "/dashboard/seller-advertise",
+    },
+  ];
+
+  const userMenu = [
+    {
+      name: t('dashboard.user.paymentHistory.title'),
+      icon: <FaHistory className="text-xl" />,
+      path: "/dashboard/user-payments",
+    },
+  ];
 
   if (roleLoading) {
     return (
       <aside className="h-full min-h-screen w-20 md:w-64 bg-[#396961] text-white flex flex-col py-8 px-2 md:px-4 font-outfit shadow-lg transition-all duration-300">
-        <h1 className="text-center text-white text-lg font-bold">Loading...</h1>
+        <h1 className="text-center text-white text-lg font-bold">{t('common.loading')}</h1>
       </aside>
     );
   }
@@ -102,7 +102,7 @@ const Sidebar = () => {
         <Logo />
       </div>
       <h2 className="hidden md:block text-2xl font-bold mb-8 text-center tracking-wide">
-        Dashboard
+        {t('dashboard.title')}
       </h2>
       <nav className="flex flex-col gap-2">
         {menu.map((item) => (

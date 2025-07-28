@@ -1,14 +1,17 @@
 import React from "react";
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import Sidebar from "../pages/Dashboard/Sidebar";
 import { Outlet } from "react-router";
 import Logo from "../utility/Logo";
-import { Helmet } from 'react-helmet';
 
 const DashboardLayout = () => {
+  const { t } = useTranslation();
+  
   return (
     <>
       <Helmet>
-        <title>MediPharma - Dashboard</title>
+        <title>{t('dashboard.title')}</title>
       </Helmet>
       <div className="flex">
         <Sidebar />

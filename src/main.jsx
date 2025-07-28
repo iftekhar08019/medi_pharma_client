@@ -9,18 +9,22 @@ import "aos/dist/aos.css";
 import { CartProvider } from "./context/CartContext.jsx";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./context/AuthProvider.jsx";
+import { LanguageProvider } from "./context/LanguageContext";
+import "./i18n";
 
 Aos.init();
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <RouterProvider router={route} />
-        </AuthProvider>
-        <Toaster position="top-right" />
-      </QueryClientProvider>
-    </CartProvider>
+    <LanguageProvider>
+      <CartProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <RouterProvider router={route} />
+          </AuthProvider>
+          <Toaster position="top-right" />
+        </QueryClientProvider>
+      </CartProvider>
+    </LanguageProvider>
   </StrictMode>
 );

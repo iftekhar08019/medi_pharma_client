@@ -1,17 +1,19 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import Hero from './components/Hero';
 import CategorySection from './components/CatagorySection';
 import DiscountProductsSlider from './components/DiscountedProductSlider';
 import MarqueeSection from './components/MarqueeSection';
 import BenefitsSection from './components/BenefitsSection';
-import { Helmet } from 'react-helmet';
-
 
 const Home = () => {
+    const { t } = useTranslation();
+    
     return (
         <>
             <Helmet>
-                <title>MediPharma - Home</title>
+                <title>{t('home.title')}</title>
             </Helmet>
             <div >
                 <Hero />

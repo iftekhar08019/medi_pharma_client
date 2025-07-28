@@ -1,0 +1,352 @@
+{
+  "navbar": {
+    "home": "Startseite",
+    "shop": "Shop",
+    "cart": "Warenkorb",
+    "joinUs": "Beitreten",
+    "updateProfile": "Profil aktualisieren",
+    "dashboard": "Dashboard",
+    "logout": "Abmelden",
+    "language": "Deutsch"
+  },
+  "footer": {
+    "description": "Ihre vertrauenswürdige Online-Apotheken-Plattform, die Sie mit verifizierten Gesundheitsanbietern verbindet. Qualitätsmedikamente, fachkundige Beratung und sichere Lieferung an Ihre Haustür.",
+    "address": {
+      "title": "MediPharma Hauptsitz",
+      "street": "Gesundheitsbezirk, Medizinisches Zentrum",
+      "city": "Baltimore, MD, USA 21201"
+    },
+    "phone": "1-800-MEDICINE (1-800-633-4246)",
+    "email": "support@medipharma.com",
+    "stayConnected": "Bleiben Sie mit uns verbunden",
+    "becomeVendor": {
+      "title": "Anbieter werden?",
+      "description": "Schließen Sie sich unserem Netzwerk vertrauenswürdiger Gesundheitsanbieter an und erreichen Sie Millionen von Kunden landesweit",
+      "button": "Jetzt bewerben"
+    },
+    "newsletter": {
+      "title": "Gesundheits-Updates Newsletter",
+      "placeholder": "Ihre E-Mail-Adresse",
+      "subscribe": "Abonnieren",
+      "agreement": "Ich stimme zu, Gesundheits-Updates und Werbeangebote zu erhalten"
+    },
+    "copyright": "Alle Rechte vorbehalten © 2024 MediPharma - Multi-Vendor Medizin-Plattform"
+  },
+  "home": {
+    "title": "MediPharma - Startseite",
+    "hero": {
+      "title": "Ihre Gesundheit, Unsere Priorität",
+      "subtitle": "Entdecken Sie Qualitätsmedikamente von vertrauenswürdigen Anbietern",
+      "cta": "Jetzt Einkaufen",
+      "learnMore": "Mehr Erfahren"
+    },
+    "categories": {
+      "title": "Nach Kategorie Einkaufen",
+      "viewAll": "Alle Kategorien Anzeigen"
+    },
+    "discountedProducts": {
+      "title": "Sonderangebote",
+      "viewAll": "Alle Angebote Anzeigen"
+    },
+    "benefits": {
+      "title": "Warum MediPharma Wählen?",
+      "quality": {
+        "title": "Qualität Garantiert",
+        "description": "Alle Produkte verifiziert und qualitätsgetestet"
+      },
+      "delivery": {
+        "title": "Schnelle Lieferung",
+        "description": "Schnelle und sichere Lieferung an Ihre Haustür"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Experten-Gesundheitsberatung jederzeit"
+      },
+      "secure": {
+        "title": "Sichere Zahlung",
+        "description": "Sichere und verschlüsselte Zahlungsmethoden"
+      }
+    },
+    "marquee": {
+      "text": "Vertraut von Millionen Kunden weltweit • Qualitätsmedikamente • Expertenberatung • Sichere Lieferung"
+    }
+  },
+  "shop": {
+    "title": "MediPharma - Shop",
+    "searchPlaceholder": "Medizin, Generika oder Unternehmen suchen...",
+    "breadcrumb": {
+      "home": "Startseite",
+      "shop": "Shop"
+    },
+    "filters": {
+      "title": "Filter",
+      "category": "Kategorie",
+      "price": "Preisbereich",
+      "brand": "Marke",
+      "clearAll": "Alle Löschen",
+      "apply": "Filter Anwenden"
+    },
+    "sort": {
+      "title": "Sortieren nach",
+      "newest": "Neueste",
+      "oldest": "Älteste",
+      "priceLow": "Preis: Niedrig zu Hoch",
+      "priceHigh": "Preis: Hoch zu Niedrig",
+      "nameAZ": "Name: A bis Z",
+      "nameZA": "Name: Z bis A"
+    },
+    "viewToggle": {
+      "grid": "Rasteransicht",
+      "list": "Listenansicht"
+    },
+    "resultBar": {
+      "showing": "Zeige",
+      "of": "von",
+      "results": "Ergebnissen"
+    },
+    "productCard": {
+      "addToCart": "Zum Warenkorb Hinzufügen",
+      "outOfStock": "Nicht Verfügbar",
+      "viewDetails": "Details Anzeigen",
+      "discount": "RABATT"
+    },
+    "productModal": {
+      "close": "Schließen",
+      "addToCart": "Zum Warenkorb Hinzufügen",
+      "quantity": "Menge",
+      "description": "Beschreibung",
+      "specifications": "Spezifikationen",
+      "reviews": "Bewertungen"
+    }
+  },
+  "category": {
+    "title": "Kategorie Details",
+    "products": "Produkte",
+    "noProducts": "Keine Produkte in dieser Kategorie gefunden"
+  },
+  "dashboard": {
+    "title": "MediPharma - Dashboard",
+    "sidebar": {
+      "home": "Startseite",
+      "profile": "Profil",
+      "orders": "Bestellungen",
+      "payments": "Zahlungen",
+      "settings": "Einstellungen",
+      "logout": "Abmelden"
+    },
+    "admin": {
+      "home": {
+        "title": "Admin Dashboard",
+        "welcome": "Willkommen im Admin Dashboard",
+        "stats": {
+          "users": "Gesamte Benutzer",
+          "products": "Gesamte Produkte",
+          "orders": "Gesamte Bestellungen",
+          "revenue": "Gesamteinnahmen"
+        }
+      },
+      "manageUsers": {
+        "title": "Benutzer Verwalten",
+        "addUser": "Benutzer Hinzufügen",
+        "editUser": "Benutzer Bearbeiten",
+        "deleteUser": "Benutzer Löschen",
+        "search": "Benutzer suchen...",
+        "table": {
+          "name": "Name",
+          "email": "E-Mail",
+          "role": "Rolle",
+          "status": "Status",
+          "actions": "Aktionen"
+        }
+      },
+      "managePayments": {
+        "title": "Zahlungen Verwalten",
+        "search": "Zahlungen suchen...",
+        "table": {
+          "id": "Zahlungs-ID",
+          "user": "Benutzer",
+          "amount": "Betrag",
+          "status": "Status",
+          "date": "Datum",
+          "actions": "Aktionen"
+        }
+      },
+      "salesReport": {
+        "title": "Verkaufsbericht",
+        "period": "Zeitraum Auswählen",
+        "export": "Bericht Exportieren",
+        "chart": {
+          "title": "Verkaufsübersicht",
+          "revenue": "Einnahmen",
+          "orders": "Bestellungen"
+        }
+      },
+      "manageCategory": {
+        "title": "Kategorien Verwalten",
+        "addCategory": "Kategorie Hinzufügen",
+        "editCategory": "Kategorie Bearbeiten",
+        "deleteCategory": "Kategorie Löschen",
+        "search": "Kategorien suchen...",
+        "table": {
+          "name": "Name",
+          "description": "Beschreibung",
+          "products": "Produkte",
+          "actions": "Aktionen"
+        }
+      },
+      "manageBanner": {
+        "title": "Banner Verwalten",
+        "addBanner": "Banner Hinzufügen",
+        "editBanner": "Banner Bearbeiten",
+        "deleteBanner": "Banner Löschen",
+        "table": {
+          "title": "Titel",
+          "image": "Bild",
+          "status": "Status",
+          "actions": "Aktionen"
+        }
+      }
+    },
+    "seller": {
+      "home": {
+        "title": "Verkäufer Dashboard",
+        "welcome": "Willkommen im Verkäufer Dashboard",
+        "stats": {
+          "products": "Gesamte Produkte",
+          "orders": "Gesamte Bestellungen",
+          "revenue": "Gesamteinnahmen",
+          "pending": "Ausstehende Bestellungen"
+        }
+      },
+      "manageMedicines": {
+        "title": "Medikamente Verwalten",
+        "addMedicine": "Medikament Hinzufügen",
+        "editMedicine": "Medikament Bearbeiten",
+        "deleteMedicine": "Medikament Löschen",
+        "search": "Medikamente suchen...",
+        "table": {
+          "name": "Name",
+          "category": "Kategorie",
+          "price": "Preis",
+          "stock": "Lagerbestand",
+          "status": "Status",
+          "actions": "Aktionen"
+        }
+      },
+      "paymentHistory": {
+        "title": "Zahlungshistorie",
+        "search": "Zahlungen suchen...",
+        "table": {
+          "id": "Zahlungs-ID",
+          "amount": "Betrag",
+          "status": "Status",
+          "date": "Datum",
+          "method": "Zahlungsmethode"
+        }
+      },
+      "askForAdvertisement": {
+        "title": "Werbung Anfragen",
+        "form": {
+          "title": "Werbungsanfrage",
+          "description": "Beschreibung",
+          "budget": "Budget",
+          "duration": "Dauer",
+          "submit": "Anfrage Einreichen"
+        }
+      }
+    },
+    "user": {
+      "paymentHistory": {
+        "title": "Zahlungshistorie",
+        "search": "Zahlungen suchen...",
+        "table": {
+          "id": "Zahlungs-ID",
+          "amount": "Betrag",
+          "status": "Status",
+          "date": "Datum",
+          "method": "Zahlungsmethode"
+        }
+      }
+    }
+  },
+  "cart": {
+    "title": "MediPharma - Warenkorb",
+    "pageTitle": "Ihr Warenkorb",
+    "empty": "Ihr Warenkorb ist leer.",
+    "product": "PRODUKT",
+    "quantity": "MENGE",
+    "total": "GESAMT",
+    "continueShopping": "Weiter einkaufen",
+    "clearCart": "Warenkorb leeren",
+    "addNote": "Notiz hinzufügen",
+    "notePlaceholder": "Text hier eingeben...",
+    "subtotal": "Zwischensumme",
+    "taxesInfo": "Steuern und Versand werden beim Checkout berechnet",
+    "checkout": "Zur Kasse",
+    "discountPlaceholder": "Rabattcode hinzufügen",
+    "apply": "Anwenden"
+  },
+  "checkout": {
+    "title": "MediPharma - Kasse",
+    "contact": "Kontakt",
+    "emailPlaceholder": "E-Mail oder Mobiltelefonnummer",
+    "newsletter": "E-Mail mit Neuigkeiten und Angeboten",
+    "delivery": "Lieferung",
+    "firstName": "Vorname (optional)",
+    "lastName": "Nachname",
+    "address": "Adresse",
+    "apartment": "Wohnung, Suite, etc. (optional)",
+    "postalCode": "Postleitzahl",
+    "city": "Stadt",
+    "saveInfo": "Diese Informationen für das nächste Mal speichern",
+    "shippingMethod": "Versandmethode",
+    "shippingPlaceholder": "Geben Sie Ihre Lieferadresse ein, um verfügbare Versandmethoden anzuzeigen.",
+    "payment": "Zahlung",
+    "secureText": "Alle Transaktionen sind sicher und verschlüsselt.",
+    "creditCard": "Kreditkarte",
+    "continueShopping": "Weiter einkaufen",
+    "goToCart": "Zum Warenkorb",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "total": "Gesamt",
+    "stockIssues": "Lagerbestand-Probleme"
+  },
+  "login": {
+    "title": "MediPharma - Anmeldung"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Anzeigen",
+    "search": "Suchen",
+    "filter": "Filter",
+    "sort": "Sortieren",
+    "price": "Preis",
+    "quantity": "Menge",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "city": "Stadt",
+    "country": "Land",
+    "postalCode": "Postleitzahl",
+    "description": "Beschreibung",
+    "image": "Bild",
+    "status": "Status",
+    "date": "Datum",
+    "time": "Zeit",
+    "actions": "Aktionen",
+    "yes": "Ja",
+    "no": "Nein",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "pending": "Ausstehend",
+    "completed": "Abgeschlossen",
+    "failed": "Fehlgeschlagen"
+  }
+} 

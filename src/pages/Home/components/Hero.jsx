@@ -4,9 +4,11 @@ import "swiper/css/pagination";
 import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
   const axios = useAxios();
+  const { t } = useTranslation();
 
   const {
     data: adsData,
@@ -20,8 +22,8 @@ const Hero = () => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching ads</div>;
+  if (isLoading) return <div>{t('common.loading')}</div>;
+  if (isError) return <div>{t('common.error')}</div>;
   const sliderAds = adsData.filter(ad => ad.showInSlider);
   return (
     <div className="relative rounded-xl overflow-hidden">
@@ -57,7 +59,7 @@ const Hero = () => {
                   to="/shops"
                   className="bg-[#396961] hover:bg-amber-400 hover:text-black text-white px-8 py-3 rounded-full text-xl transition-colors"
                 >
-                  Shop Now
+                  {t('home.hero.cta')}
                 </Link>
               </div>
             </div>

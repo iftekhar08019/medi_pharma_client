@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiEye, FiShoppingBag } from "react-icons/fi";
 import { FaTags } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const DiscountedProductCard = ({
     image,
@@ -12,6 +13,7 @@ const DiscountedProductCard = ({
     onAddToCart,
 }) => {
     const [hovered, setHovered] = useState(false);
+    const { t } = useTranslation();
 
     return (
         <div
@@ -42,12 +44,14 @@ const DiscountedProductCard = ({
                 <button
                     className="bg-[#396961] rounded-xl p-2 mb-1 flex items-center justify-center shadow hover:scale-110 transition"
                     onClick={onView}
+                    title={t('shop.productCard.viewDetails')}
                 >
                     <FiEye size={24} className="text-white" />
                 </button>
                 <button
                     className="bg-[#396961] rounded-xl p-2 flex items-center justify-center shadow hover:scale-110 transition"
                     onClick={onAddToCart}
+                    title={t('shop.productCard.addToCart')}
                 >
                     <FiShoppingBag size={24} className="text-white" />
                 </button>

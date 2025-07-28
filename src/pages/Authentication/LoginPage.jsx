@@ -3,13 +3,13 @@ import SignInForm from "./SignInForm";
 import RegistrationPage from "./RegistrationPage";
 import { useNavigate, useLocation } from "react-router";
 import { Helmet } from 'react-helmet';
-
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { t } = useTranslation();
 
   // Animation classes
   const transitionClass =
@@ -24,7 +24,7 @@ const LoginPage = () => {
   return (
     <>
       <Helmet>
-        <title>MediPharma - Login</title>
+        <title>{t('login.title')}</title>
       </Helmet>
       <div className="min-h-screen w-full flex items-center justify-center px-2 py-6">
         <div className="w-full max-w-4xl h-auto md:h-[600px] rounded-3xl overflow-hidden flex relative border-[#396961] border-2 shadow-xl">

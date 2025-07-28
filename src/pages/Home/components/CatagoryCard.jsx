@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router"; // for navigation (updated to use react-router-dom)
+import { useTranslation } from "react-i18next";
 
 const CategoryCard = ({ category }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="card w-[90%] sm:w-[95%] md:w-full bg-[#CEDDD1] shadow-xl transition-transform duration-300 hover:scale-105 group mx-auto">
         
@@ -19,14 +22,14 @@ const CategoryCard = ({ category }) => {
           {category.category_name.toUpperCase()}
         </h3>
         <p className="text-sm text-gray-600">
-          {category.medicine_count} medicines
+          {category.medicine_count} {t('common.quantity')}
         </p>
         <div className="card-actions justify-center mt-6">
           <Link
             to={category.category_link}
             className="bg-[#396961] hover:bg-amber-400 hover:text-black text-white px-8 py-3 rounded-full text-xl"
           >
-            <span>Explore</span>
+            <span>{t('common.view')}</span>
           </Link>
         </div>
       </div>

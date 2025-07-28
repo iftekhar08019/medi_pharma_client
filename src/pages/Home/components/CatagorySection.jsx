@@ -2,9 +2,11 @@ import React from "react";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
+import { useTranslation } from "react-i18next";
 
 const CategorySection = () => {
   const axios = useAxios();
+  const { t } = useTranslation();
 
   // Fetch categories from the API
   const { data: categories = [], isLoading, isError } = useQuery({
@@ -15,12 +17,12 @@ const CategorySection = () => {
     },
   });
 
-  if (isLoading) return <div className="text-center py-10">Loading categories...</div>;
-  if (isError) return <div className="text-center py-10 text-red-500">Failed to load categories.</div>;
+  if (isLoading) return <div className="text-center py-10">{t('common.loading')}</div>;
+  if (isError) return <div className="text-center py-10 text-red-500">{t('common.error')}</div>;
 
   return (
     <div className="w-full mx-auto my-10" data-aos="fade-up">
-      <h1 className="text-4xl font-bold text-center my-10">Browse Categories</h1>
+      <h1 className="text-4xl font-bold text-center my-10">{t('home.categories.title')}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" data-aos="fade-up">
         {categories.map((category) => (
           <div
@@ -39,14 +41,14 @@ const CategorySection = () => {
                 {category.categoryName.toUpperCase()}
               </h3>
               <p className="text-sm text-gray-600">
-                {category.medicineCount} medicines
+                {category.medicineCount} {t('common.quantity')}
               </p>
               <div className="card-actions justify-center mt-6">
                 <Link
                   to={`/category/${encodeURIComponent(category.categoryName)}`}
                   className="bg-[#396961] hover:bg-amber-400 hover:text-black text-white px-8 py-3 rounded-full text-xl"
                 >
-                  <span>Explore</span>
+                  <span>{t('common.view')}</span>
                 </Link>
               </div>
             </div>

@@ -5,6 +5,7 @@ import useAxios from "../../hooks/useAxios";
 import ProductSection from "./components/ProductSection";
 import { Link } from "react-router"; // Or "react-router-dom" if v6+
 import { Helmet } from 'react-helmet';
+import { useTranslation } from "react-i18next";
 
 const fetchProducts = async (axiosInstance) => {
   const res = await axiosInstance.get("/products");
@@ -15,6 +16,7 @@ const ShopPage = () => {
   const axiosInstance = useAxios();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useTranslation();
 
   const {
     data: products,
@@ -45,35 +47,37 @@ const ShopPage = () => {
   return (
     <>
       <Helmet>
-        <title>MediPharma - Shop</title>
+        <title>{t('shop.title')}</title>
       </Helmet>
       <div className="rounded-3xl p-0 sm:p-0 min-h-screen w-full space-y-10">
         <div className="w-full px-0 sm:px-0">
           <div className="bg-[#396961] rounded-3xl w-full flex flex-col items-center justify-center py-10 sm:py-12">
             <h1 className="text-5xl font-bold text-white mb-2 text-center">
-              Shop
+              {t('navbar.shop')}
             </h1>
             <nav className="flex items-center gap-2 text-white text-lg font-medium">
               <Link to="/" className="hover:underline">
-                Home
+                {t('shop.breadcrumb.home')}
               </Link>
               <span className="mx-1">{">"}</span>
               <Link to="/shops" className="hover:underline">
-                Shop
+                {t('shop.breadcrumb.shop')}
               </Link>
             </nav>
           </div>
         </div>
+
         {/* --- Search Bar --- */}
         <div className="w-full flex justify-center mb-6">
           <input
             type="text"
-            placeholder="Search medicine, generic name, or company..."
+            placeholder={t('shop.searchPlaceholder')}
             className="w-full max-w-xl border border-gray-300 rounded-xl px-4 py-2 text-lg shadow focus:outline-none focus:ring-2 focus:ring-[#396961]"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
         </div>
+
         <div className="flex flex-col lg:flex-row gap-6">
           <SidebarFilters 
             onFiltersChange={handleFiltersChange}

@@ -10,12 +10,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useCart } from "../../../context/CartContext";
 import toast from "react-hot-toast";
 import ProductDetailsModal from "../../Shop/components/ProductDetailsModal";
+import { useTranslation } from "react-i18next";
 
 const DiscountProductsSlider = () => {
   const axios = useAxios();
   const { dispatch } = useCart();
   const [modalProduct, setModalProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const {
     data: allProducts,
@@ -36,21 +38,21 @@ const DiscountProductsSlider = () => {
 
   if (isLoading) return (
     <section className="w-full mx-auto my-10" data-aos="fade-up">
-      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
-      <div className="text-center text-gray-600">Loading discounted products...</div>
+      <h1 className="text-4xl font-bold text-center my-10">{t('home.discountedProducts.title')}</h1>
+      <div className="text-center text-gray-600">{t('common.loading')}</div>
     </section>
   );
 
   if (isError) return (
     <section className="w-full mx-auto my-10" data-aos="fade-up">
-      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
-      <div className="text-center text-red-600">Error loading discounted products</div>
+      <h1 className="text-4xl font-bold text-center my-10">{t('home.discountedProducts.title')}</h1>
+      <div className="text-center text-red-600">{t('common.error')}</div>
     </section>
   );
 
   if (!discountedProducts.length) return (
     <section className="w-full mx-auto my-10" data-aos="fade-up">
-      <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
+      <h1 className="text-4xl font-bold text-center my-10">{t('home.discountedProducts.title')}</h1>
       <div className="text-center text-gray-600">No discounted products available at the moment</div>
     </section>
   );
@@ -78,7 +80,7 @@ const DiscountProductsSlider = () => {
         onClose={handleCloseModal}
       />
       <section className="w-full mx-auto my-10" data-aos="fade-up">
-        <h1 className="text-4xl font-bold text-center my-10">Find Our Discount Products</h1>
+        <h1 className="text-4xl font-bold text-center my-10">{t('home.discountedProducts.title')}</h1>
         <div className="mx-auto">
           <Swiper
             modules={[Navigation, Pagination]}
@@ -104,7 +106,7 @@ const DiscountProductsSlider = () => {
                   name={product.name}
                   price={product.discountPrice || product.price}
                   oldPrice={product.discounted ? product.price : null}
-                  discount={product.discountPercent ? `${product.discountPercent}% OFF` : "SALE"}
+                  discount={product.discountPercent ? `${product.discountPercent}% ${t('shop.productCard.discount')}` : "SALE"}
                   onView={() => handleViewDetails(product)}
                   onAddToCart={() => handleAddToCart(product)}
                 />

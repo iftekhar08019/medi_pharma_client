@@ -1,6 +1,7 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { FaLeaf, FaCapsules, FaRegHospital, FaStethoscope, FaHeartbeat, FaStar } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 // Dummy brands; you can add more or use real data/logos
 const brandsRow1 = [
@@ -40,31 +41,35 @@ const BrandCard = ({ name, icon, bold }) => (
   </div>
 );
 
-const MarqueeSection = () => (
-  <section className="w-full py-12 bg-transparent">
-    <h1 className="text-4xl font-bold text-center my-10 text-black">Our Associated Brands</h1>
+const MarqueeSection = () => {
+  const { t } = useTranslation();
+
+  return (
+    <section className="w-full py-12 bg-transparent">
+      <h1 className="text-4xl font-bold text-center my-10 text-black">Our Associated Brands</h1>
       <p className="text-center text-black text-lg mb-10">
-        Discover our trusted brands and partners in healthcare & medicine.
+        {t('home.marquee.text')}
       </p>
-    {/* First Marquee (Left to Right) */}
-    <Marquee pauseOnHover={true} speed={40} gradient={false} className="mb-4">
-      {brandsRow1.map((brand, idx) => (
-        <BrandCard key={idx} {...brand} />
-      ))}
-    </Marquee>
-    {/* Second Marquee (Right to Left) */}
-    <Marquee
-      pauseOnHover={true}
-      speed={40}
-      gradient={false}
-      direction="right"
-      className=""
-    >
-      {brandsRow2.map((brand, idx) => (
-        <BrandCard key={idx} {...brand} />
-      ))}
-    </Marquee>
-  </section>
-);
+      {/* First Marquee (Left to Right) */}
+      <Marquee pauseOnHover={true} speed={40} gradient={false} className="mb-4">
+        {brandsRow1.map((brand, idx) => (
+          <BrandCard key={idx} {...brand} />
+        ))}
+      </Marquee>
+      {/* Second Marquee (Right to Left) */}
+      <Marquee
+        pauseOnHover={true}
+        speed={40}
+        gradient={false}
+        direction="right"
+        className=""
+      >
+        {brandsRow2.map((brand, idx) => (
+          <BrandCard key={idx} {...brand} />
+        ))}
+      </Marquee>
+    </section>
+  );
+};
 
 export default MarqueeSection;
