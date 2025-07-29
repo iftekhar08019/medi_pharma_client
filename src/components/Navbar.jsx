@@ -72,6 +72,29 @@ const Navbar = () => {
     };
   }, [showDropdownMobile, showLanguageDropdownMobile]);
 
+  // Close mobile menu on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      const mobileMenu = document.querySelector('.mobile-menu-dropdown');
+      const mobileMenuButton = document.querySelector('.mobile-menu-button');
+      
+      if (mobileMenu && !mobileMenu.contains(event.target) && 
+          mobileMenuButton && !mobileMenuButton.contains(event.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    }
+    
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
   const handleLogout = async (isDesktop) => {
     await logOut();
     if (isDesktop) setShowDropdownDesktop(false);
@@ -163,7 +186,7 @@ const Navbar = () => {
           <div className="navbar-start lg:hidden">
             <button
               onClick={toggleMobileMenu}
-              className="btn btn-ghost text-white hover:bg-[#2e5a52] transition-colors"
+              className="mobile-menu-button btn btn-ghost text-white hover:bg-[#2e5a52] transition-colors p-2 min-h-[44px] min-w-[44px]"
               aria-label="Toggle mobile menu"
             >
               <svg
@@ -184,7 +207,7 @@ const Navbar = () => {
           </div>
 
           {/* Logo - Centered */}
-          <div className="navbar-center">
+          <div className="navbar-center flex-1 flex justify-center">
             <Logo />
           </div>
 
@@ -214,7 +237,7 @@ const Navbar = () => {
                 </button>
                 {showDropdownDesktop && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
-                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); /* navigate to update profile */ }}>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/'); }}>
                       {t('navbar.updateProfile')}
                     </button>
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/dashboard') }}>
@@ -248,7 +271,7 @@ const Navbar = () => {
           <div className="navbar-end lg:hidden">
             {!user ? (
               <button
-                className="flex items-center gap-1 px-2 py-1 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition-colors"
+                className="flex items-center gap-1 px-3 py-2 text-white font-medium rounded-full bg-transparent hover:bg-yellow-500 hover:text-black transition-colors min-h-[44px]"
                 onClick={() => setShowModal(true)}
               >
                 <FaRegUser size={18} />
@@ -257,7 +280,7 @@ const Navbar = () => {
             ) : (
               <div className="relative" ref={dropdownRefMobile}>
                 <button
-                  className="flex items-center gap-1 px-1 py-1 bg-white rounded-full hover:bg-gray-200 transition-colors border border-gray-200 focus:outline-none"
+                  className="flex items-center gap-1 px-2 py-2 bg-white rounded-full hover:bg-gray-200 transition-colors border border-gray-200 focus:outline-none min-h-[44px]"
                   onClick={() => setShowDropdownMobile((v) => !v)}
                 >
                   <img
@@ -269,10 +292,10 @@ const Navbar = () => {
                 </button>
                 {showDropdownMobile && (
                   <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
-                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); /* navigate to update profile */ }}>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); navigate('/'); }}>
                       {t('navbar.updateProfile')}
                     </button>
-                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); /* navigate to dashboard */ }}>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); navigate('/dashboard'); }}>
                       {t('navbar.dashboard')}
                     </button>
                     <button className="px-4 py-2 hover:bg-red-100 text-left text-red-600 font-semibold" onClick={() => handleLogout(false)}>
@@ -287,12 +310,12 @@ const Navbar = () => {
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden w-[96%] mx-auto mt-2 bg-[#CEDDD1] rounded-xl p-4 shadow-lg">
+          <div className="mobile-menu-dropdown lg:hidden w-[96%] mx-auto mt-2 bg-[#CEDDD1] rounded-xl p-4 shadow-lg z-40 relative">
             <ul className="space-y-3 text-black">
               <li>
                 <NavLink 
                   to="/" 
-                  className="block py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium"
+                  className="block py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium min-h-[44px] flex items-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navbar.home')}
@@ -301,7 +324,7 @@ const Navbar = () => {
               <li>
                 <NavLink 
                   to="/shops" 
-                  className="block py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium"
+                  className="block py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium min-h-[44px] flex items-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navbar.shop')}
@@ -310,7 +333,7 @@ const Navbar = () => {
               <li>
                 <NavLink 
                   to="/cart" 
-                  className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium relative"
+                  className="flex items-center gap-2 py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium relative min-h-[44px]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <span className="relative">
@@ -327,7 +350,7 @@ const Navbar = () => {
               {/* Language Dropdown for Mobile */}
               <li className="relative" ref={languageDropdownRefMobile}>
                 <button 
-                  className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium cursor-pointer w-full text-left"
+                  className="flex items-center gap-2 py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium cursor-pointer w-full text-left min-h-[44px]"
                   onClick={() => setShowLanguageDropdownMobile(!showLanguageDropdownMobile)}
                 >
                   <span role="img" aria-label="flag">
@@ -340,7 +363,7 @@ const Navbar = () => {
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
                       <button 
-                        className="flex items-center gap-2 w-full py-1 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm"
+                        className="flex items-center gap-2 w-full py-2 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm min-h-[40px]"
                         onClick={() => handleLanguageChange('en')}
                       >
                         <span role="img" aria-label="flag">
@@ -351,7 +374,7 @@ const Navbar = () => {
                     </li>
                     <li>
                       <button 
-                        className="flex items-center gap-2 w-full py-1 px-3 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm"
+                        className="flex items-center gap-2 w-full py-2 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors text-sm min-h-[40px]"
                         onClick={() => handleLanguageChange('de')}
                       >
                         <span role="img" aria-label="flag">
