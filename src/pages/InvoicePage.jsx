@@ -3,7 +3,7 @@ import Logo from "../utility/Logo";
 import { useLocation, useNavigate } from "react-router";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
 const InvoicePage = () => {
   const location = useLocation();
@@ -45,25 +45,14 @@ const InvoicePage = () => {
 
   const generatePDF = async () => {
     if (!componentRef.current) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Invoice content not found. Please try again.",
-      });
+      toast.error("Invoice content not found. Please try again.");
       return;
     }
 
     setIsGeneratingPDF(true);
 
     try {
-      Swal.fire({
-        title: "Generating PDF...",
-        text: "Please wait while we prepare your invoice.",
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
+      const loadingToast = toast.loading("Generating PDF... Please wait while we prepare your invoice.");
 
       const canvas = await html2canvas(componentRef.current, {
         scale: 2,
@@ -101,20 +90,13 @@ const InvoicePage = () => {
 
       pdf.save(fileName);
 
-      Swal.fire({
-        icon: "success",
-        title: "PDF Generated Successfully!",
-        text: `Invoice has been downloaded as ${fileName}`,
-        timer: 3000,
-        showConfirmButton: false,
-      });
+      // Dismiss loading toast and show success
+      toast.dismiss(loadingToast);
+      toast.success(`PDF Generated Successfully! Invoice has been downloaded as ${fileName}`);
     } catch (error) {
       console.error("Error generating PDF:", error);
-      Swal.fire({
-        icon: "error",
-        title: "PDF Generation Failed",
-        text: "There was an error generating the PDF. Please try again.",
-      });
+      toast.dismiss(loadingToast);
+      toast.error("PDF Generation Failed. There was an error generating the PDF. Please try again.");
     } finally {
       setIsGeneratingPDF(false);
     }
@@ -122,11 +104,7 @@ const InvoicePage = () => {
 
   const printInvoice = () => {
     if (!componentRef.current) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Invoice content not found. Please try again.",
-      });
+      toast.error("Invoice content not found. Please try again.");
       return;
     }
 
@@ -174,10 +152,42 @@ const InvoicePage = () => {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "#f0fdf4", minHeight: "100vh" }}
-      className="flex flex-col items-center py-8 px-2"
-    >
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            duration: 3000,
+            iconTheme: {
+              primary: '#4ade80',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            duration: 4000,
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+          },
+          loading: {
+            duration: Infinity,
+            iconTheme: {
+              primary: '#3b82f6',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
+      <div
+        style={{ backgroundColor: "#f0fdf4", minHeight: "100vh" }}
+        className="flex flex-col items-center py-8 px-2"
+      >
       <div
         ref={componentRef}
         style={{
@@ -476,6 +486,7 @@ const InvoicePage = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
