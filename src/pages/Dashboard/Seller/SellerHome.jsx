@@ -9,6 +9,7 @@ import {
 } from "chart.js";
 import useAxios from "../../../hooks/useAxios";
 import { AuthContext } from "../../../context/AuthContext";
+import PageLoading from "../../../components/PageLoading";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -25,8 +26,8 @@ const SellerHome = () => {
     enabled: !!user?.email,
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading seller summary</div>;
+  if (isLoading) return <PageLoading text="Loading Seller Dashboard..." />;
+  if (error) return <div className="p-8 text-center text-red-500">Error loading seller summary</div>;
 
   const pieData = {
     labels: ["Paid", "Pending"],

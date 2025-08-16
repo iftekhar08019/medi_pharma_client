@@ -6,20 +6,40 @@ import "aos/dist/aos.css";
 import { CartProvider } from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
 import { LanguageProvider } from "./context/LanguageContext";
+import { LoadingProvider } from "./components/LoadingProvider";
+import AuthProvider from "./context/AuthProvider.jsx";
+import Loading from "./components/Loading";
+import { useLoadingState } from "./hooks/useLoadingState";
 import "./i18n";
 
 Aos.init();
 const queryClient = new QueryClient();
 
+// Component to handle loading state
+function AppContent() {
+  useLoadingState(); // This hook will manage the loading state
+  
+  return (
+    <>
+      <RouterProvider router={route} />
+      <Loading />
+      <Toaster position="top-right" />
+    </>
+  );
+}
+
 function App() {
   return (
     <LanguageProvider>
-      <CartProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={route} />
-          <Toaster position="top-right" />
-        </QueryClientProvider>
-      </CartProvider>
+      <LoadingProvider>
+        <CartProvider>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <AppContent />
+            </AuthProvider>
+          </QueryClientProvider>
+        </CartProvider>
+      </LoadingProvider>
     </LanguageProvider>
   );
 }

@@ -6,6 +6,7 @@ import ProductSection from "./components/ProductSection";
 import { Link } from "react-router"; // Or "react-router-dom" if v6+
 import { Helmet } from 'react-helmet';
 import { useTranslation } from "react-i18next";
+import PageLoading from "../../components/PageLoading";
 
 const fetchProducts = async (axiosInstance) => {
   const res = await axiosInstance.get("/products");

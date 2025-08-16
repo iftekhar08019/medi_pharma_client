@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
 import { AuthContext } from "../../../context/AuthContext";
+import PageLoading from "../../../components/PageLoading";
 
 const ManageUsers = () => {
   const axiosInstance = useAxios();
@@ -54,8 +55,8 @@ const ManageUsers = () => {
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading users</div>;
+  if (isLoading) return <PageLoading text="Loading Users..." />;
+  if (error) return <div className="p-8 text-center text-red-500">Error loading users</div>;
 
   return (
     <div className="w-[96%] mx-auto my-10">

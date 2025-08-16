@@ -6,6 +6,7 @@ import useAxios from "../../hooks/useAxios";
 import toast from "react-hot-toast";
 import { useCart } from "../../context/CartContext";
 import { useTranslation } from "react-i18next";
+import PageLoading from "../../components/PageLoading";
 
 const typeLabels = {
   tablet: "Tablet",
@@ -59,7 +60,7 @@ const CategoryDetails = () => {
     toast.success("Product added to cart!");
   };
 
-  if (isLoading) return <div className="p-8 text-center">{t('common.loading')}</div>;
+  if (isLoading) return <PageLoading text={`Loading ${categoryName} Products...`} />;
   if (isError) return <div className="p-8 text-center text-red-500">{t('common.error')}</div>;
 
   return (

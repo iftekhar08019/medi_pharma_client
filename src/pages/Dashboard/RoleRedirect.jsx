@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import useUserRole from '../../hooks/useUserRole';
+import PageLoading from '../../components/PageLoading';
 
 
 const RoleRedirect = () => {
@@ -17,8 +18,8 @@ const RoleRedirect = () => {
         }
     }, [role, roleLoading, navigate]);
 
-    if (roleLoading) return <h1 className="text-center">Loading...</h1>;
-    return <div>Redirecting...</div>;
+    if (roleLoading) return <PageLoading text="Loading Dashboard..." fullScreen={true} />;
+    return <PageLoading text="Redirecting..." fullScreen={true} />;
 };
 
 export default RoleRedirect;

@@ -13,6 +13,7 @@ import {
 import Logo from "../../utility/Logo";
 import useUserRole from "../../hooks/useUserRole";
 import { useTranslation } from "react-i18next";
+import ManualLoading from "../../components/ManualLoading";
 
 const Sidebar = () => {
   const { role, roleLoading } = useUserRole();
@@ -85,7 +86,9 @@ const Sidebar = () => {
   if (roleLoading) {
     return (
       <aside className="h-full min-h-screen w-20 md:w-64 bg-[#396961] text-white flex flex-col py-8 px-2 md:px-4 font-outfit shadow-lg transition-all duration-300">
-        <h1 className="text-center text-white text-lg font-bold">{t('common.loading')}</h1>
+        <div className="flex items-center justify-center h-full">
+          <ManualLoading size="small" text={t('common.loading')} />
+        </div>
       </aside>
     );
   }

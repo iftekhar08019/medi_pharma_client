@@ -9,6 +9,7 @@ import {
   Legend
 } from "chart.js";
 import useAxios from "../../../hooks/useAxios";
+import PageLoading from "../../../components/PageLoading";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,8 +23,8 @@ const AdminHome = () => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading summary</div>;
+  if (isLoading) return <PageLoading text="Loading Dashboard..." />;
+  if (error) return <div className="p-8 text-center text-red-500">Error loading summary</div>;
 
   const pieData = {
     labels: ["Paid", "Pending"],
