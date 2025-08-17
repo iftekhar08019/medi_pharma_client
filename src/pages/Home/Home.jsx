@@ -6,6 +6,8 @@ import CategorySection from './components/CatagorySection';
 import DiscountProductsSlider from './components/DiscountedProductSlider';
 import MarqueeSection from './components/MarqueeSection';
 import BenefitsSection from './components/BenefitsSection';
+import NewsletterSection from './components/NewsletterSection';
+import CustomerReviewsSection from './components/CustomerReviewsSection';
 
 const Home = () => {
     const { t } = useTranslation();
@@ -21,6 +23,8 @@ const Home = () => {
                 <DiscountProductsSlider />
                 <MarqueeSection />
                 <BenefitsSection />
+                <CustomerReviewsSection />
+                <NewsletterSection />
             </div>
         </>
     );

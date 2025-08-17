@@ -342,6 +342,31 @@
     "imageUploadSuccess": "Bild erfolgreich hochgeladen!",
     "imageUploadError": "Bild konnte nicht hochgeladen werden. Bitte versuchen Sie es erneut."
   },
+      "newsletter": {
+        "title": "Bleiben Sie auf dem Laufenden",
+        "subtitle": "Erhalten Sie exklusive Angebote, Gesundheitstipps und Produktneuheiten direkt in Ihren Posteingang",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+        "subscribe": "Abonnieren",
+        "subscribing": "Wird abonniert...",
+        "subscribed": "Abonniert!",
+        "exclusiveOffers": "Exklusive Angebote",
+        "exclusiveOffersDesc": "Erhalten Sie besondere Rabatte vor allen anderen",
+        "healthTips": "Gesundheitstipps",
+        "healthTipsDesc": "Wöchentliche Wellness-Ratschläge von Experten",
+        "newProducts": "Neue Produkte",
+        "newProductsDesc": "Seien Sie der Erste, der von neuen Produkten erfährt",
+        "privacyNote": "Wir respektieren Ihre Privatsphäre. Jederzeit abbestellbar."
+    },
+    "reviews": {
+        "title": "Was Unsere Kunden Sagen",
+        "subtitle": "Schließen Sie sich Tausenden zufriedener Kunden an, die MediPharma für ihre Gesundheitsversorgung vertrauen",
+        "stats": {
+            "customers": "Zufriedene Kunden",
+            "satisfaction": "Zufriedenheitsrate",
+            "support": "Kundensupport",
+            "products": "Authentische Produkte"
+        }
+    },
   "common": {
     "loading": "Laden...",
     "error": "Fehler",
