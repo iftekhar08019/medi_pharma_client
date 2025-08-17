@@ -129,8 +129,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
-        <div className="navbar shadow-sm bg-[#396961] w-[96%] mx-auto rounded-xl p-3 sm:p-4 lg:p-5 m-4 sm:m-6 lg:m-10">
+      <div className="sticky -top-4 lg:-top-[39px] z-50 py-4 sm:py-6 lg:py-10">
+        <div className="navbar shadow-sm bg-[#396961] w-[96%] mx-auto rounded-xl p-3 sm:p-4 lg:p-5">
           {/* Desktop Navigation */}
           <div className="navbar-start hidden lg:flex font-semibold text-white">
             <ul className="menu menu-horizontal px-1 text-xl">
