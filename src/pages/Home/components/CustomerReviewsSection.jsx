@@ -74,7 +74,7 @@ const CustomerReviewsSection = () => {
             {/* Background Elements */}
             <div className="absolute inset-0  opacity-60"></div>
             <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-r from-[#396961]/5 to-[#2e7153]/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl"></div>
             
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Section Header */}
@@ -107,8 +107,8 @@ const CustomerReviewsSection = () => {
                                 className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16"
                             >
                                 {/* Decorative Elements */}
-                                <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-r from-[#396961]/10 to-[#2e7153]/10 rounded-full blur-2xl"></div>
-                                <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-l from-[#396961]/10 to-[#2e7153]/10 rounded-full blur-2xl"></div>
+                                <div className="absolute top-0 left-0 w-32 h-32 rounded-full blur-2xl"></div>
+                                <div className="absolute bottom-0 right-0 w-40 h-40 rounded-full blur-2xl"></div>
                                 {/* Review Content - Left Side */}
                                 <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
                                     <div className="mb-6">
