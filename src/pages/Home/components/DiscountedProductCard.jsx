@@ -17,7 +17,7 @@ const DiscountedProductCard = ({
 
     return (
         <div
-            className="relative rounded-2xl bg-[#CEDDD1] p-6 w-[80%] shadow- flex flex-col items-center transition-all duration-300 group ml-8"
+            className="relative rounded-2xl bg-[#CEDDD1] p-6 w-full h-full min-h-[400px] shadow-md flex flex-col items-center transition-all duration-300 group"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
@@ -29,11 +29,13 @@ const DiscountedProductCard = ({
                 </div>
             )}
             {/* Product Image */}
-            <img
-                src={image}
-                alt={name}
-                className="w-[180px] h-[180px] rounded-2xl object-cover mb-4 hover:scale-105 transition-transform duration-300"
-            />
+            <div className="w-[180px] h-[180px] mb-4 flex-shrink-0">
+                <img
+                    src={image}
+                    alt={name}
+                    className="w-full h-full rounded-2xl object-cover hover:scale-105 transition-transform duration-300"
+                />
+            </div>
 
             {/* Hover Icons */}
             <div
@@ -58,8 +60,15 @@ const DiscountedProductCard = ({
             </div>
 
             {/* Product Details */}
-            <div className="mt-2 text-center w-full">
-                <h3 className="font-semibold text-xl mb-1">{name}</h3>
+            <div className="mt-2 text-center w-full flex-grow flex flex-col justify-end">
+                <h3 className="font-semibold text-xl mb-1 min-h-[3rem] flex items-center justify-center text-center overflow-hidden" 
+                    style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        textOverflow: 'ellipsis'
+                    }}
+                >{name}</h3>
                 <div className="flex flex-col items-center justify-center gap-1">
                     {oldPrice && (
                         <span className="text-gray-500 text-base line-through">

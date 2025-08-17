@@ -237,7 +237,7 @@ const Navbar = () => {
                 </button>
                 {showDropdownDesktop && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
-                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/'); }}>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/profile'); }}>
                       {t('navbar.updateProfile')}
                     </button>
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownDesktop(false); navigate('/dashboard') }}>
@@ -292,7 +292,7 @@ const Navbar = () => {
                 </button>
                 {showDropdownMobile && (
                   <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 z-50 flex flex-col text-black">
-                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); navigate('/'); }}>
+                    <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); navigate('/profile'); }}>
                       {t('navbar.updateProfile')}
                     </button>
                     <button className="px-4 py-2 hover:bg-[#eaf3ec] text-left" onClick={() => { setShowDropdownMobile(false); navigate('/dashboard'); }}>
@@ -315,7 +315,7 @@ const Navbar = () => {
               <li>
                 <NavLink 
                   to="/" 
-                  className="block py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium min-h-[44px] flex items-center"
+                  className="flex items-center py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium min-h-[44px]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navbar.home')}
@@ -324,7 +324,7 @@ const Navbar = () => {
               <li>
                 <NavLink 
                   to="/shops" 
-                  className="block py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium min-h-[44px] flex items-center"
+                  className="flex items-center py-3 px-4 rounded-lg hover:bg-[#b8c9bc] transition-colors font-medium min-h-[44px]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navbar.shop')}

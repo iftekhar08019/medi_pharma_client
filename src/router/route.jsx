@@ -8,6 +8,7 @@ import Checkout from "../pages/Checkout";
 import PrivateRoute from "../routes/PrivateRoute";
 
 import LoginPage from "../pages/Authentication/LoginPage";
+import UpdateProfile from "../pages/Profile/UpdateProfile";
 
 import InvoicePage from "../pages/InvoicePage";
 import DashboardLayout from "../layouts/DashboardLayout";
@@ -52,6 +53,14 @@ export const route = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <UpdateProfile />
+          </PrivateRoute>
+        ),
       },
     ],
   },

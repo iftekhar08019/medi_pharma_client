@@ -100,7 +100,7 @@ const DiscountProductsSlider = () => {
             className="!px-2"
           >
             {discountedProducts.map((product) => (
-              <SwiperSlide key={product._id || product.id} className="flex justify-between items-center">
+              <SwiperSlide key={product._id || product.id} className="h-auto flex items-stretch">
                 <DiscountedProductCard
                   image={product.imageUrl}
                   name={product.name}
