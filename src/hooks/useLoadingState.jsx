@@ -12,26 +12,19 @@ export const useLoadingState = () => {
   const isMutating = useIsMutating();
 
   useEffect(() => {
-    const isLoading = isFetching > 0 || isMutating > 0;
-    
-    if (isLoading) {
-      let loadingText = t('common.loading');
-      
-      if (isMutating > 0) {
-        loadingText = 'Processing...';
-      } else if (isFetching > 0) {
-        loadingText = 'Loading data...';
-      }
-      
+    // Only show the global full-screen loader for mutations (e.g., form submits)
+    // Let pages handle their own fetching states to avoid covering navbar/layout
+    if (isMutating > 0) {
+      const loadingText = 'Processing...';
       showLoading(loadingText);
     } else {
       hideLoading();
     }
-  }, [isFetching, isMutating, showLoading, hideLoading, t]);
+  }, [isMutating, showLoading, hideLoading]);
 
   return {
-    isLoading: isFetching > 0 || isMutating > 0,
-    isFetching: isFetching > 0,
+    isLoading: isMutating > 0,
+    isFetching: isFetching > 0, // exposed for consumers if needed
     isMutating: isMutating > 0,
   };
 }; 
