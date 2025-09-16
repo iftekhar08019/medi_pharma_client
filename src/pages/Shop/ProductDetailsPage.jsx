@@ -60,7 +60,7 @@ const ProductDetailsPage = () => {
     navigate("/checkout");
   };
 
-  if (isLoading) return <PageLoading text="Loading product..." fullScreen={true} />;
+  if (isLoading) return <PageLoading text="Loading product..." fullScreen={false} />;
   if (isError) return <div className="p-8 text-center text-red-500">Failed to load product.</div>;
   if (!product) return <div className="p-8 text-center text-gray-500">Product not found.</div>;
 
