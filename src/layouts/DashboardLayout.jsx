@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next';
 import Sidebar from "../pages/Dashboard/Sidebar";
 import { Outlet } from "react-router";
 import Logo from "../utility/Logo";
+import ScrollToTop from "../components/ScrollToTop";
 
 const DashboardLayout = () => {
   const { t } = useTranslation();
   
   return (
     <>
+      <ScrollToTop />
       <Helmet>
         <title>{t('dashboard.title')}</title>
       </Helmet>
