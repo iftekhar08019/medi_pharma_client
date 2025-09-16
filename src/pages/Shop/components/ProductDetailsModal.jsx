@@ -180,7 +180,16 @@ const ProductDetailsModal = ({ product, isOpen, onClose, onBuyNow }) => {
           </div>
           {/* View full details link (optional) */}
           <div className="mt-4 text-center sm:text-right">
-            <button className="text-[#2e7153] hover:underline font-medium text-sm sm:text-base" onClick={onClose}>
+            <button
+              className="text-[#2e7153] hover:underline font-medium text-sm sm:text-base"
+              onClick={() => {
+                const id = product._id?.$oid || product._id || product.id;
+                if (id) {
+                  onClose && onClose();
+                  navigate(`/product/${id}`);
+                }
+              }}
+            >
               View full details &rarr;
             </button>
           </div>

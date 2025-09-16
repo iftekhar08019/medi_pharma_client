@@ -27,6 +27,7 @@ import ManageMedicines from "../pages/Dashboard/Seller/ManageMedicines";
 import PaymentHistory from "../pages/Dashboard/Seller/PaymentHistory";
 import AskForAdvertisement from "../pages/Dashboard/Seller/AskForAdvertisement";
 import UserPaymentHistory from "../pages/Dashboard/User/UserPaymentHistory";
+import ProductDetailsPage from "../pages/Shop/ProductDetailsPage";
 
 export const route = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const route = createBrowserRouter([
       {
         path: "/shops",
         element: <ShopPage />,
+      },
+      {
+        path: "/product/:productId",
+        element: <ProductDetailsPage />,
       },
 
       {
